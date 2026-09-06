@@ -1,43 +1,82 @@
-const express = require("express")
-const {isAdmin,requireSignin} = require("../middleware/authMiddleware")
-const {createProductController , getProductController , getSingleProductController ,
-    getPhotoController , deleteProductController ,updateProductController , 
-    productFilterController , productCountController , productListController ,
-    searchProductController}= require("../controllers/productController")
-const formidable = require("express-formidable")
+const express = require("express");
+const { isAdmin, requireSignin } = require("../middleware/authMiddleware");
+const {
+    createProductController,
+    getProductController,
+    getSingleProductController,
+    getPhotoController,
+    deleteProductController,
+    updateProductController,
+    productFilterController,
+    productCountController,
+    productListController,
+    searchProductController,
+    productCategoryController,
+    getRelatedProductsController,
+    validateCouponController,
+    checkoutOrderController,
+} = require("../controllers/productController");
+const formidable = require("express-formidable");
 
-const router = express.Router()
+const router = express.Router();
 
-//create product 
-router.post("/create-product",requireSignin, isAdmin , formidable, createProductController)
-//get all products
-router.get("/get-product", getProductController)
+// Create product (admin)
+router.post(
+    "/create-product",
+    requireSignin,
+    isAdmin,
+    formidable(),
+    createProductController
+);
 
-//get single product 
-router.get("/get-product/:slug", getSingleProductController)
+// Get all products
+router.get("/get-product", getProductController);
 
-//get photo
-router.get("/get-product-photo/:pid", getPhotoController)
+// Get single product by slug or id
+router.get("/get-product/:slug", getSingleProductController);
 
-//update product 
-router.post("/update-product/:pid",requireSignin, isAdmin , formidable, updateProductController)
+// Get photo
+router.get("/get-product-photo/:pid", getPhotoController);
 
-//delete product
+// Update product (admin)
+router.put(
+    "/update-product/:pid",
+    requireSignin,
+    isAdmin,
+    formidable(),
+    updateProductController
+);
 
-router.delete("/delete-product/:pid", deleteProductController)
+// Delete product (admin)
+router.delete(
+    "/delete-product/:pid",
+    requireSignin,
+    isAdmin,
+    deleteProductController
+);
 
-//filter product 
-router.post("/product-filter", productFilterController)
+// Filter and sort products
+router.post("/product-filter", productFilterController);
 
+// Product count
+router.get("/product-count", productCountController);
 
-//product count 
+// Product per page pagination
+router.get("/product-list/:page", productListController);
 
-router.get("/product-count", productCountController)
+// Search product
+router.get("/search/:keyword", searchProductController);
 
-//product per page 
-router.get("/product-list/:page", productListController)
+// Category wise product
+router.get("/product-category/:slug", productCategoryController);
 
-// search product 
-router.get("/search", searchProductController)
+// Related products
+router.get("/related-product/:pid/:cid", getRelatedProductsController);
 
-module.exports = router
+// Validate coupon
+router.post("/validate-coupon", validateCouponController);
+
+// Checkout and place order
+router.post("/order-checkout", requireSignin, checkoutOrderController);
+
+module.exports = router;

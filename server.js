@@ -1,22 +1,23 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
-const categoryRoutes = require("./routes/categoryRoutes")
-const productRoutes = require("./routes/productRoutes")
+const categoryRoutes = require("./routes/categoryRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 // env configure
 dotenv.config();
 
-//database connection
+// database connection
 connectDB();
 
 // server instance 
-const app = express()
+const app = express();
 
-
-//middleware
-app.use(express.json())
+// middleware
+app.use(cors());
+app.use(express.json());
 
 
 // routes

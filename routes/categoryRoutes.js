@@ -1,14 +1,28 @@
- const express = require("express");
-const { requireSignin , isAdmin } = require("../middleware/authMiddleware");
-const { createCategoryController,updateCategoryController, singleCategoryController} = require("../controllers/categoryController")
+const express = require("express");
+const { requireSignin, isAdmin } = require("../middleware/authMiddleware");
+const {
+    createCategoryController,
+    updateCategoryController,
+    categoryController,
+    singleCategoryController,
+    deleteCategoryController,
+} = require("../controllers/categoryController");
 
- const router = express.Router();
+const router = express.Router();
 
- router.post("/create-category", requireSignin, isAdmin, createCategoryController);
+// Create category (admin)
+router.post("/create-category", requireSignin, isAdmin, createCategoryController);
 
- router.put("/update-category/:id", requireSignin, isAdmin , updateCategoryController)
+// Update category (admin)
+router.put("/update-category/:id", requireSignin, isAdmin, updateCategoryController);
 
- router.get("/single-category/:slug", singleCategoryController)
+// Get all categories
+router.get("/get-category", categoryController);
 
+// Get single category
+router.get("/single-category/:slug", singleCategoryController);
 
- module.exports = router; 
+// Delete category (admin)
+router.delete("/delete-category/:id", requireSignin, isAdmin, deleteCategoryController);
+
+module.exports = router;
