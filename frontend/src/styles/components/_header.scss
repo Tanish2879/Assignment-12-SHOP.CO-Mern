@@ -1,0 +1,81 @@
+@use "../abstract/variables" as *;
+@use "../abstract/mixins" as *;
+
+
+.site-header{
+    width: 100%;
+    height: 6.25rem;
+    background-color: $colorwhite;
+
+    &__nav{
+      @include Flex-between;
+        height: 100%;
+        margin: 0 6.25rem 0 6.25rem;
+    }
+
+    &__logo-link{
+        display: block;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    &__logo{
+        display: block;
+        width: 7.125rem;
+        height: auto;
+
+    }
+    &__menu{
+        display: flex;
+        align-items: center;
+        gap: 1.5625rem;
+        list-style: none;
+        margin-left: 2.5rem;
+        padding: 0;
+
+        &__menu-item{
+            text-decoration: none;
+        }
+
+    }
+
+    &__link{
+        display: flex;
+        align-items: center;
+        color:$colorblack;
+        text-decoration: none;
+        @include Hover-opacity;
+
+    }
+
+    &__search{
+        position: relative;
+        flex: 1;
+        width: 34.375rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+    }
+    &__search-input{
+        background-color:$colorhero;
+        border-radius: 1.875rem;
+        width: 80%;
+        height: 2.5rem;
+        border: none;
+        padding-left:3.25rem ;
+    }
+
+    &__search-icon{
+        position: absolute;
+        left:5rem;
+    }
+    &__actions{
+        display: flex;
+        gap: 0.9375rem;
+    }
+
+    
+    
+}

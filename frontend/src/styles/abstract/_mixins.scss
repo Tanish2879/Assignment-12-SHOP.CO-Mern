@@ -1,0 +1,46 @@
+ @mixin Flex-center{
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+ }
+
+
+
+@mixin Flex-between{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin Flex-even{
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+}
+
+
+@mixin Flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+
+@mixin Button-base {
+    border: none;
+    cursor: pointer;
+    font: inherit;
+}
+
+
+@mixin Hover-opacity {
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+
+@mixin Responsive-container {
+    width: calc(100% - 72px);
+    max-width: 1180px;
+    margin: 0 auto;
+}
