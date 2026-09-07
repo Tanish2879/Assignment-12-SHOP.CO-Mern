@@ -1,0 +1,103 @@
+@use "../abstract/variables" as *;
+@use "../abstract/mixins" as *;
+
+
+
+.login {
+    background: $colorhero;
+    padding: 5rem 1.5rem;
+}
+
+.login__content {
+    width: min(100%, 30rem);
+    margin: 0 auto;
+    padding: 3rem;
+    background: $colorwhite;
+    border: 1px solid $color-border;
+    border-radius: 1rem;
+}
+
+.login__header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.login__eyebrow {
+    margin: 0 0 1.5rem;
+    color: $colordark;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.login__title {
+    margin: 0;
+    color: $colorblack;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.login__welcome {
+    margin: 0.75rem 0 0;
+    color: $color-text-muted;
+    font-size: 1rem;
+}
+
+.login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.login__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.login__label {
+    color: $colordark;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.login__input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid $color-input-border;
+    border-radius: 0.5rem;
+    background: $color-input;
+    color: $colorblack;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.login__input:focus {
+    outline: 2px solid $colorblack;
+    outline-offset: 2px;
+}
+
+.login__button {
+    margin-top: 0.5rem;
+    padding: 0.875rem 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+    background: $colorblack;
+    color: $colorwhite;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login__button:hover {
+    background: $colordarkhover;
+}
+
+@media (max-width: 30rem) {
+    .login {
+        padding: 3rem 1rem;
+    }
+
+    .login__content {
+        padding: 2rem 1.25rem;
+    }
+}

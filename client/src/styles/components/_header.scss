@@ -79,3 +79,17 @@
     
     
 }
+
+
+@media (max-width: 62rem) {
+  .site-header {
+    &__nav {
+      margin: 0 2.5rem;
+    }
+
+    &__menu {
+      gap: 1rem;
+      margin: 0 1.25rem;
+    }
+  }
+}

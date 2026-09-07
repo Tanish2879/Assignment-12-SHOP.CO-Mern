@@ -1,6 +1,8 @@
 @use "abstract/variables";
 @use "abstract/mixins";
-@use "components/header"
+@use "components/header";
+@use "components/login";
+@use "abstract/global"
 // @use "scss/base/global";
 // @use "scss/pages/home";
 // @use "scss/pages/product";

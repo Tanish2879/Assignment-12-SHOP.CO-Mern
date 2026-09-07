@@ -63,4 +63,14 @@
 .site-header__actions {
   display: flex;
   gap: 0.9375rem;
+}
+
+@media (max-width: 62rem) {
+  .site-header__nav {
+    margin: 0 2.5rem;
+  }
+  .site-header__menu {
+    gap: 1rem;
+    margin: 0 1.25rem;
+  }
 }/*# sourceMappingURL=main.css.map */

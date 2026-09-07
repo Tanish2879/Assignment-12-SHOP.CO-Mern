@@ -46,9 +46,9 @@ function Home() {
         <h2>NEW ARRIVALS</h2>
 
         <div className="product-grid">
-          {products.map((product) => (
+          {/* {products.map((product) => (
             <ProductCard key={product.id} product={product} />
-          ))}
+          ))} */}
         </div>
       </section>
     </main>
