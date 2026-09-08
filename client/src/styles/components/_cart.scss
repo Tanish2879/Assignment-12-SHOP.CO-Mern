@@ -1,0 +1,50 @@
+@use "../abstract/variables" as *;
+@use "../abstract/mixins" as *;
+
+.cart-page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: $colorblack;
+    text-transform: uppercase;
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    margin-bottom: 5rem;
+  }
+
+  &__items-container {
+    background-color: $colorwhite;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  &__empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (max-width: 62rem) {
+  .cart-page {
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__content {
+      grid-template-columns: 1fr;
+    }
+  }
+}

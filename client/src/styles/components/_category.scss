@@ -1,0 +1,146 @@
+@use "../abstract/variables" as *;
+@use "../abstract/mixins" as *;
+
+.category-page {
+  padding: 1.5rem 1rem 5rem;
+
+  &__container {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  &__breadcrumbs-wrapper {
+    margin-bottom: 1.5rem;
+  }
+
+  &__layout {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  &__sidebar-wrapper {
+    flex-shrink: 0;
+    width: 295px;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $colorblack;
+    margin: 0;
+    text-transform: capitalize;
+  }
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__count {
+    font-size: 0.875rem;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+  }
+
+  &__sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  &__sort-select {
+    border: none;
+    background: transparent;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $colorblack;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &__filter-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    color: $colorblack;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  &__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1.125rem;
+  }
+
+  &__pagination-wrapper {
+    margin-top: 1rem;
+  }
+}
+
+/* Mobile & Tablet responsiveness */
+@media (max-width: 62rem) {
+  .category-page {
+    &__sidebar-wrapper {
+      display: none;
+    }
+
+    &__filter-btn {
+      display: flex;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: 36rem) {
+  .category-page {
+    padding-top: 1rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__count {
+      display: none;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+  }
+}

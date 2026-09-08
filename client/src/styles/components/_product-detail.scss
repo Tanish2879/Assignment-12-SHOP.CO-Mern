@@ -1,0 +1,335 @@
+@use "../abstract/variables" as *;
+@use "../abstract/mixins" as *;
+
+.product-detail-page {
+  padding: 1.5rem 1rem 5rem;
+
+  &__container {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  &__breadcrumbs-wrapper {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Main Top Section (Gallery + Info) */
+  &__hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  /* Gallery */
+  &__gallery {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    width: 130px;
+    flex-shrink: 0;
+  }
+
+  &__thumb-btn {
+    border-radius: 16px;
+    background-color: #f0eeed;
+    border: 1px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    transition: border-color 0.2s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    &--active {
+      border-color: $colorblack;
+    }
+  }
+
+  &__main-image-wrapper {
+    flex: 1;
+    background-color: #f0eeed;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 480px;
+
+    img {
+      max-width: 100%;
+      max-height: 450px;
+      object-fit: contain;
+      display: block;
+    }
+  }
+
+  /* Product Details Info */
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: $colorblack;
+    line-height: 1.15;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__price-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__current-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $colorblack;
+  }
+
+  &__original-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.3);
+    text-decoration: line-through;
+  }
+
+  &__discount-badge {
+    background-color: rgba(255, 51, 51, 0.1);
+    color: #ff3333;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.35rem 0.875rem;
+    border-radius: 62px;
+  }
+
+  &__description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+  }
+
+  &__divider {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0;
+  }
+
+  /* Actions (Quantity + Add to Cart) */
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  &__add-to-cart-btn {
+    flex: 1;
+    height: 3.25rem;
+    background-color: $colorblack;
+    color: $colorwhite;
+    border: none;
+    border-radius: 62px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: #333333;
+    }
+
+    &:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  }
+
+  /* Tabs Section */
+  &__tabs-section {
+    margin-bottom: 4rem;
+  }
+
+  &__tabs-header {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  &__tab-btn {
+    flex: 1;
+    padding: 1.25rem 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: $colorblack;
+    }
+
+    &--active {
+      color: $colorblack;
+      font-weight: 600;
+      border-bottom-color: $colorblack;
+    }
+  }
+
+  /* Reviews Tab */
+  &__reviews-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__reviews-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $colorblack;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    span {
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  &__reviews-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  &__write-review-btn {
+    background-color: $colorblack;
+    color: $colorwhite;
+    border: none;
+    border-radius: 62px;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #333333;
+    }
+  }
+
+  &__reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  &__load-more-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 0.875rem 3rem;
+    background-color: $colorwhite;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 62px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $colorblack;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  /* Tab Details and FAQ content */
+  &__tab-content {
+    color: rgba(0, 0, 0, 0.7);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+
+  /* Related Products Section */
+  &__related {
+    margin-top: 4rem;
+  }
+
+  &__related-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    color: $colorblack;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 62rem) {
+  .product-detail-page {
+    &__hero {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    &__gallery {
+      flex-direction: column-reverse;
+    }
+
+    &__thumbnails {
+      flex-direction: row;
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    &__thumb-btn {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    &__main-image-wrapper {
+      min-height: 320px;
+    }
+
+    &__title {
+      font-size: 1.75rem;
+    }
+
+    &__reviews-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

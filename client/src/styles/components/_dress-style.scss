@@ -1,0 +1,104 @@
+@use "../abstract/variables" as *;
+@use "../abstract/mixins" as *;
+
+.dress-style {
+  padding: 4rem 1rem;
+
+  &__container {
+    max-width: 1240px;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+    border-radius: 40px;
+    padding: 4rem 4rem 4.75rem;
+  }
+
+  &__title {
+    font-size: 2.75rem;
+    font-weight: 900;
+    text-align: center;
+    color: $colorblack;
+    text-transform: uppercase;
+    margin-bottom: 3.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.25rem;
+  }
+
+  &__card {
+    position: relative;
+    height: 289px;
+    background-color: $colorwhite;
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &__item--wide-left {
+    grid-column: span 4;
+  }
+
+  &__item--wide-right {
+    grid-column: span 8;
+  }
+
+  &__card-name {
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: $colorblack;
+    z-index: 2;
+  }
+
+  &__card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+@media (max-width: 62rem) {
+  .dress-style {
+    padding: 2.5rem 1rem;
+
+    &__container {
+      padding: 2rem 1.5rem;
+      border-radius: 24px;
+    }
+
+    &__title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    &__item--wide-left,
+    &__item--wide-right {
+      grid-column: span 12;
+    }
+
+    &__card {
+      height: 200px;
+    }
+
+    &__card-name {
+      font-size: 1.5rem;
+      top: 1rem;
+      left: 1.25rem;
+    }
+  }
+}

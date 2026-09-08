@@ -1,38 +1,47 @@
-function ProductCard({ product }) {
+import { Link } from "react-router-dom";
+import StarRating from "./StarRating";
+
+const ProductCard = (props) => {
+  const product = props.product || props;
+  const id = product._id || product.id || "";
+  const name = product.name || product.title || "";
+  const image = product.image || product.imageUrl || "";
+  const price = product.price || 0;
+  const originalPrice = product.originalPrice;
+  const discount = product.discount || product.discountPercentage;
+  const rating = product.rating || 0;
+
   return (
-    <article className="product-card">
-      <div className="product-card__image">
-        <img src={product.image} alt={product.name} />
-      </div>
+    <div className="product-card">
+      <Link to={`/product/${id}`} className="product-card__image-link">
+        <div className="product-card__image-wrapper">
+          <img src={image} alt={name} className="product-card__image" />
+        </div>
+      </Link>
 
       <div className="product-card__content">
-        <h3 className="product-card__name">{product.name}</h3>
+        <Link to={`/product/${id}`} className="product-card__title-link">
+          <h3 className="product-card__title">{name}</h3>
+        </Link>
 
         <div className="product-card__rating">
-          <span>★</span>
-          <span>{product.rating}/5</span>
+          <StarRating rating={rating} />
         </div>
 
-        <div className="product-card__price">
-          <span className="product-card__current-price">
-            ${product.price}
-          </span>
-
-          {product.originalPrice && (
-            <span className="product-card__original-price">
-              ${product.originalPrice}
-            </span>
+        <div className="product-card__price-container">
+          <span className="product-card__current-price">${price}</span>
+          {originalPrice && (
+            <span className="product-card__original-price">${originalPrice}</span>
           )}
-
-          {product.discount && (
-            <span className="product-card__discount">
-              {product.discount}
+          {discount && (
+            <span className="product-card__discount-badge">
+              {typeof discount === "number" ? `-${discount}%` : discount}
             </span>
           )}
         </div>
       </div>
-    </article>
+    </div>
   );
-}
+};
 
 export default ProductCard;
