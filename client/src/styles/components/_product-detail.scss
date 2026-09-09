@@ -16,40 +16,46 @@
   /* Main Top Section (Gallery + Info) */
   &__hero {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.05fr 0.95fr;
     gap: 2.5rem;
     margin-bottom: 4rem;
+    align-items: flex-start;
   }
 
   /* Gallery */
   &__gallery {
     display: flex;
     gap: 1rem;
+    align-items: flex-start;
   }
 
   &__thumbnails {
     display: flex;
     flex-direction: column;
     gap: 0.875rem;
-    width: 130px;
+    width: 140px;
     flex-shrink: 0;
   }
 
   &__thumb-btn {
-    border-radius: 16px;
-    background-color: #f0eeed;
-    border: 1px solid transparent;
-    padding: 0;
+    border-radius: 20px;
+    background-color: $color-card-gray;
+    border: 1.5px solid transparent;
+    padding: 0.5rem;
     cursor: pointer;
     overflow: hidden;
     aspect-ratio: 1 / 1;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       display: block;
+    }
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.3);
     }
 
     &--active {
@@ -59,17 +65,18 @@
 
   &__main-image-wrapper {
     flex: 1;
-    background-color: #f0eeed;
+    background-color: $color-card-gray;
     border-radius: 20px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 480px;
+    min-height: 530px;
+    padding: 1.5rem;
 
     img {
       max-width: 100%;
-      max-height: 450px;
+      max-height: 480px;
       object-fit: contain;
       display: block;
     }
@@ -79,16 +86,18 @@
   &__info {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.125rem;
   }
 
   &__title {
     font-size: 2.5rem;
     font-weight: 900;
+    font-family: $font-display;
     color: $colorblack;
     line-height: 1.15;
     margin: 0;
     text-transform: uppercase;
+    letter-spacing: -0.5px;
   }
 
   &__rating {
@@ -105,20 +114,22 @@
 
   &__current-price {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: 800;
+    font-family: $font-display;
     color: $colorblack;
   }
 
   &__original-price {
     font-size: 2rem;
     font-weight: 700;
+    font-family: $font-display;
     color: rgba(0, 0, 0, 0.3);
     text-decoration: line-through;
   }
 
   &__discount-badge {
-    background-color: rgba(255, 51, 51, 0.1);
-    color: #ff3333;
+    background-color: $color-discount-bg;
+    color: $color-danger;
     font-size: 0.875rem;
     font-weight: 600;
     padding: 0.35rem 0.875rem;
@@ -127,7 +138,7 @@
 
   &__description {
     font-size: 0.9375rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: rgba(0, 0, 0, 0.6);
     margin: 0;
   }
@@ -135,7 +146,7 @@
   &__divider {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin: 0;
+    margin: 0.25rem 0;
   }
 
   /* Actions (Quantity + Add to Cart) */
@@ -154,12 +165,13 @@
     border: none;
     border-radius: 62px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.15s ease;
 
     &:hover:not(:disabled) {
-      background-color: #333333;
+      background-color: #222222;
+      transform: translateY(-2px);
     }
 
     &:disabled {
@@ -176,7 +188,7 @@
   &__tabs-header {
     display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+    margin-bottom: 2.25rem;
   }
 
   &__tab-btn {
@@ -198,7 +210,7 @@
 
     &--active {
       color: $colorblack;
-      font-weight: 600;
+      font-weight: 700;
       border-bottom-color: $colorblack;
     }
   }
@@ -208,7 +220,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
     flex-wrap: wrap;
     gap: 1rem;
   }
@@ -231,7 +243,21 @@
 
   &__reviews-actions {
     display: flex;
+    align-items: center;
     gap: 0.75rem;
+  }
+
+  &__filter-icon-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background-color: $color-bg-gray;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: $colorblack;
   }
 
   &__write-review-btn {
@@ -239,14 +265,14 @@
     color: $colorwhite;
     border: none;
     border-radius: 62px;
-    padding: 0.65rem 1.5rem;
+    padding: 0.75rem 1.75rem;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #333333;
+      background-color: #222222;
     }
   }
 
@@ -260,18 +286,19 @@
   &__load-more-btn {
     display: block;
     margin: 0 auto;
-    padding: 0.875rem 3rem;
+    padding: 0.875rem 3.5rem;
     background-color: $colorwhite;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 62px;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 0.9375rem;
+    font-weight: 600;
     color: $colorblack;
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: $color-bg-gray;
+      border-color: rgba(0, 0, 0, 0.2);
     }
   }
 
@@ -280,20 +307,25 @@
     color: rgba(0, 0, 0, 0.7);
     line-height: 1.7;
     font-size: 1rem;
+    background-color: $colorwhite;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
   }
 
   /* Related Products Section */
   &__related {
-    margin-top: 4rem;
+    margin-top: 4.5rem;
   }
 
   &__related-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 900;
     text-align: center;
     color: $colorblack;
     text-transform: uppercase;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
+    letter-spacing: -0.5px;
   }
 }
 
@@ -302,7 +334,7 @@
   .product-detail-page {
     &__hero {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
     &__gallery {
@@ -316,16 +348,16 @@
     }
 
     &__thumb-btn {
-      width: 80px;
+      width: 90px;
       flex-shrink: 0;
     }
 
     &__main-image-wrapper {
-      min-height: 320px;
+      min-height: 350px;
     }
 
     &__title {
-      font-size: 1.75rem;
+      font-size: 1.875rem;
     }
 
     &__reviews-grid {

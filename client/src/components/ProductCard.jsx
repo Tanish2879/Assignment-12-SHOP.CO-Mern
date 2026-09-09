@@ -5,17 +5,26 @@ const ProductCard = (props) => {
   const product = props.product || props;
   const id = product._id || product.id || "";
   const name = product.name || product.title || "";
-  const image = product.image || product.imageUrl || "";
+  const image = id
+    ? `http://localhost:8000/api/v1/product/get-product-photo/${id}`
+    : product.image || product.imageUrl || "";
   const price = product.price || 0;
   const originalPrice = product.originalPrice;
-  const discount = product.discount || product.discountPercentage;
-  const rating = product.rating || 0;
+  const discount = product.discount || (product.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : null);
+  const rating = product.rating || 4.5;
 
   return (
     <div className="product-card">
-      <Link to={`/product/${id}`} className="product-card__image-link">
+      <Link to={`/product/${product.slug || id}`} className="product-card__image-link">
         <div className="product-card__image-wrapper">
-          <img src={image} alt={name} className="product-card__image" />
+          <img
+            src={image}
+            alt={name}
+            className="product-card__image"
+            onError={(e) => {
+              if (product.image) e.target.src = product.image;
+            }}
+          />
         </div>
       </Link>
 

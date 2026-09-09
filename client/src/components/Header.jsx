@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import { useCart } from "../context/cartContext";
 import logo from "../assets/images/SHOP.CO.png";
 
 const Header = ({
-  cartCount = 0,
+  cartCount: propCartCount,
   searchQuery = "",
   onSearchChange,
   onSearchSubmit,
@@ -13,10 +14,14 @@ const Header = ({
     { label: "On Sale", path: "/shop?filter=sale" },
     { label: "New Arrivals", path: "/shop?filter=new" },
     { label: "Brands", path: "/#brands" },
-    { label: "Admin Panel", path: "/admin" }
+    // { label: "Admin Panel", path: "/admin" }
   ]
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [localSearch, setLocalSearch] = useState(searchQuery);
+  const navigate = useNavigate();
+  const { cartCount: contextCartCount } = useCart();
+  const cartCount = propCartCount !== undefined ? propCartCount : contextCartCount;
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -24,7 +29,14 @@ const Header = ({
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (onSearchSubmit) onSearchSubmit(searchQuery);
+    const query = (localSearch || searchQuery).trim();
+    if (onSearchSubmit) {
+      onSearchSubmit(query);
+    } else if (query) {
+      navigate(`/shop?search=${encodeURIComponent(query)}`);
+    } else {
+      navigate("/shop");
+    }
   };
 
   const [auth, setAuth] = useAuth();
@@ -118,8 +130,11 @@ const Header = ({
             type="search"
             placeholder="Search for products..."
             className="site-header__search-input"
-            value={searchQuery}
-            onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
+            value={localSearch}
+            onChange={(e) => {
+              setLocalSearch(e.target.value);
+              if (onSearchChange) onSearchChange(e.target.value);
+            }}
           />
         </form>
 

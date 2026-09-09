@@ -10,7 +10,7 @@ const ReviewCard = ({
   return (
     <div className="review-card">
       <div className="review-card__header">
-        <StarRating rating={rating} showScore={false} />
+        <StarRating rating={rating} showScore={false} size={20} />
       </div>
 
       <div className="review-card__user">
@@ -18,17 +18,19 @@ const ReviewCard = ({
         {isVerified && (
           <span className="review-card__verified-badge" title="Verified Customer">
             <svg
-              width="16"
-              height="16"
+              width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#01AB31"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
             >
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
+              <circle cx="12" cy="12" r="10" fill="#01AB31" />
+              <path
+                d="M8 12.5L10.5 15L16 9.5"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </span>
         )}

@@ -1,27 +1,34 @@
-$colorblack:#000000;
-$colorwhite:#ffffff;
+// Typography Fonts
+$font-display: 'Montserrat', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+$font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font: $font-body;
+
+// Primary Colors
+$colorblack: #000000;
+$colorwhite: #ffffff;
 $colordark: #333333;
-$colordarkhover: #2c2828;
+$colordarkhover: #1f1f1f;
 $colorhero: #f2f0f1;
-$font: Arial, Helvetica, sans-serif;
 
-$colordark: #333333;
-$colordark-hover: #2c2828;
+// Backgrounds & Cards
+$color-bg-gray: #f0f0f0;
+$color-card-gray: #f0eeed;
+$color-card-light: #fafafa;
 
-$color-light-gray: #f0f0f0;
-$color-border: #dddddd;
-$color-border-light: #d7d7d7;
-$color-border-dark: #c4c2c2;
+// Borders & Dividers
+$color-border: rgba(0, 0, 0, 0.1);
+$color-border-light: rgba(0, 0, 0, 0.08);
+$color-border-dark: rgba(0, 0, 0, 0.15);
 
-$color-text-gray: #666666;
-$color-text-muted: #777777;
-$color-placeholder: #999999;
+// Typography Grays
+$color-text-dark: #000000;
+$color-text-gray: rgba(0, 0, 0, 0.6);
+$color-text-muted: rgba(0, 0, 0, 0.4);
+$color-placeholder: rgba(0, 0, 0, 0.4);
 
+// Badges & Accents
 $color-star: #ffc633;
 $color-danger: #ff3333;
-$color-success: #00a67d;
-
-$color-input: #f0f2f1;
-$color-product-option: #f0eeed;
-$color-input-border: #d0d4d4;
-
+$color-discount-bg: rgba(255, 51, 51, 0.1);
+$color-success: #01ab31;
+$color-success-bg: rgba(1, 171, 49, 0.1);

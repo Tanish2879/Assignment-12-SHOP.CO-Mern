@@ -7,18 +7,18 @@
   &__container {
     max-width: 1240px;
     margin: 0 auto;
-    background-color: #f0f0f0;
+    background-color: $color-bg-gray;
     border-radius: 40px;
-    padding: 4rem 4rem 4.75rem;
+    padding: 4.5rem 4rem 4.75rem;
   }
 
   &__title {
-    font-size: 2.75rem;
+    font-size: 3rem;
     font-weight: 900;
     text-align: center;
     color: $colorblack;
     text-transform: uppercase;
-    margin-bottom: 3.5rem;
+    margin-bottom: 4rem;
     letter-spacing: -0.5px;
   }
 
@@ -36,27 +36,29 @@
     overflow: hidden;
     text-decoration: none;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: block;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
     }
   }
 
   &__item--wide-left {
-    grid-column: span 4;
+    grid-column: span 5;
   }
 
   &__item--wide-right {
-    grid-column: span 8;
+    grid-column: span 7;
   }
 
   &__card-name {
     position: absolute;
-    top: 1.5rem;
-    left: 2rem;
+    top: 1.75rem;
+    left: 2.25rem;
     font-size: 2.25rem;
-    font-weight: 700;
+    font-weight: 800;
+    font-family: $font-display;
     color: $colorblack;
     z-index: 2;
   }
@@ -65,7 +67,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: right center;
+    object-position: right top;
     position: absolute;
     right: 0;
     top: 0;
@@ -77,13 +79,13 @@
     padding: 2.5rem 1rem;
 
     &__container {
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       border-radius: 24px;
     }
 
     &__title {
       font-size: 2rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     &__item--wide-left,
@@ -96,9 +98,9 @@
     }
 
     &__card-name {
-      font-size: 1.5rem;
-      top: 1rem;
-      left: 1.25rem;
+      font-size: 1.625rem;
+      top: 1.25rem;
+      left: 1.5rem;
     }
   }
 }

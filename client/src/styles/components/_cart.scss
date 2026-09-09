@@ -4,21 +4,21 @@
 .cart-page {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 1rem 3rem;
+  padding: 1.5rem 1rem 4rem;
 
   &__title {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
     font-weight: 900;
     color: $colorblack;
     text-transform: uppercase;
-    margin: 0 0 1.5rem;
+    margin: 0 0 1.75rem;
     letter-spacing: -0.5px;
   }
 
   &__content {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 1.75rem;
     align-items: start;
     margin-bottom: 5rem;
   }
@@ -27,13 +27,204 @@
     background-color: $colorwhite;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.75rem;
   }
 
   &__empty {
     text-align: center;
     padding: 3rem 1rem;
     color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* Checkout Modal & Shipping Address Form */
+  &__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+
+  &__modal {
+    background-color: $colorwhite;
+    border-radius: 20px;
+    max-width: 580px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+    position: relative;
+  }
+
+  &__modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 1rem;
+  }
+
+  &__modal-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: $colorblack;
+  }
+
+  &__modal-close {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+    &:hover {
+      color: $colorblack;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    input, select, textarea {
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: $colorblack;
+      }
+    }
+  }
+
+  &__payment-methods {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  &__payment-label {
+    flex: 1;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+
+    &:has(input:checked) {
+      border-color: $colorblack;
+      background-color: #f9f9f9;
+    }
+  }
+
+  &__order-summary-box {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: rgba(0, 0, 0, 0.7);
+
+    &--total {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: $colorblack;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding-top: 0.5rem;
+      margin-top: 0.25rem;
+    }
+  }
+
+  &__form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  &__btn-cancel {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      background-color: #e4e4e4;
+    }
+  }
+
+  &__btn-submit {
+    background-color: $colorblack;
+    color: $colorwhite;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #222;
+    }
+
+    &:disabled {
+      background-color: #888;
+      cursor: not-allowed;
+    }
   }
 }
 

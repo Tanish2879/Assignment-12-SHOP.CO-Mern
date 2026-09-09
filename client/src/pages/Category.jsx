@@ -1,107 +1,101 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import axios from "axios";
 import Breadcrumbs from "../components/Breadcrumbs";
 import FilterSidebar from "../components/FilterSidebar";
 import ProductCard from "../components/ProductCard";
 import Pagination from "../components/Pagination";
 
-// Static product asset imports for initial display
-import p1 from "../assets/images/products/product1.png";
-import p2 from "../assets/images/products/product2.png";
-import p3 from "../assets/images/products/product3.png";
-import p4 from "../assets/images/products/product4.png";
-import p5 from "../assets/images/products/product5.png";
-import p6 from "../assets/images/products/product6.png";
-import p7 from "../assets/images/products/product7.png";
-import p8 from "../assets/images/products/product8.png";
-import p9 from "../assets/images/products/product 9.png";
-
-const staticProducts = [
-  {
-    id: "1",
-    name: "Gradient Graphic T-shirt",
-    image: p1,
-    rating: 3.5,
-    price: 145
-  },
-  {
-    id: "2",
-    name: "Polo with Tipping Details",
-    image: p2,
-    rating: 4.5,
-    price: 180
-  },
-  {
-    id: "3",
-    name: "Black Striped T-shirt",
-    image: p3,
-    rating: 5.0,
-    price: 120,
-    originalPrice: 150,
-    discount: 30
-  },
-  {
-    id: "4",
-    name: "Skinny Fit Jeans",
-    image: p4,
-    rating: 3.5,
-    price: 240,
-    originalPrice: 260,
-    discount: 20
-  },
-  {
-    id: "5",
-    name: "Checkered Shirt",
-    image: p5,
-    rating: 4.5,
-    price: 180
-  },
-  {
-    id: "6",
-    name: "Sleeve Striped T-shirt",
-    image: p6,
-    rating: 4.5,
-    price: 130,
-    originalPrice: 160,
-    discount: 30
-  },
-  {
-    id: "7",
-    name: "Vertical Striped Shirt",
-    image: p7,
-    rating: 5.0,
-    price: 212,
-    originalPrice: 232,
-    discount: 20
-  },
-  {
-    id: "8",
-    name: "Courage Graphic T-shirt",
-    image: p8,
-    rating: 4.0,
-    price: 145
-  },
-  {
-    id: "9",
-    name: "Loose Fit Bermuda Shorts",
-    image: p9,
-    rating: 3.0,
-    price: 80
-  }
-];
-
 const Category = () => {
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const urlCategory = searchParams.get("category");
+  const urlStyle = searchParams.get("style");
+  const urlSearch = searchParams.get("search");
+  const urlFilter = searchParams.get("filter");
 
-  // Static for now, will be populated from API later
-  const products = staticProducts;
-  const categoryTitle = "Casual";
-  const totalProducts = 100;
-  const currentPage = 1;
-  const totalPages = 10;
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Filters state
+  const [selectedCategory, setSelectedCategory] = useState(urlCategory || "");
+  const [currentPrice, setCurrentPrice] = useState(260);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedDressStyle, setSelectedDressStyle] = useState(urlStyle || "");
+  const [sortBy, setSortBy] = useState(urlFilter === "new" ? "newest" : "popular");
+
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch all categories from backend
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get("http://localhost:8000/api/v1/category/get-category");
+        if (res.data?.success) {
+          setCategories(res.data.category);
+        }
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // Fetch filtered products
+  const fetchFilteredProducts = async (pageNumber = 1) => {
+    setLoading(true);
+    try {
+      // Find category ID if selectedCategory is category name
+      let checkedCats = [];
+      if (selectedCategory) {
+        const matched = categories.find(
+          (c) => c.name.toLowerCase() === selectedCategory.toLowerCase() || c.slug === selectedCategory.toLowerCase()
+        );
+        if (matched) checkedCats.push(matched._id);
+      }
+
+      const payload = {
+        keyword: urlSearch || undefined,
+        checked: checkedCats,
+        radio: [0, currentPrice],
+        colors: selectedColor ? [selectedColor] : [],
+        sizes: selectedSize ? [selectedSize] : [],
+        dressStyle: selectedDressStyle || undefined,
+        sortBy: sortBy === "low-high" ? "price-low" : sortBy === "high-low" ? "price-high" : sortBy === "newest" ? "newest" : "popular",
+        page: pageNumber,
+        limit: 9
+      };
+
+      const res = await axios.post("http://localhost:8000/api/v1/product/product-filter", payload);
+      if (res.data?.success) {
+        setProducts(res.data.products || []);
+        setTotalCount(res.data.totalCount || res.data.total || 0);
+        setTotalPages(res.data.totalPages || 1);
+        setCurrentPage(pageNumber);
+      }
+    } catch (err) {
+      console.error("Error fetching filtered products:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchFilteredProducts(1);
+  }, [selectedCategory, currentPrice, selectedColor, selectedSize, selectedDressStyle, sortBy, categories, urlSearch]);
+
+  const handlePageChange = (page) => {
+    fetchFilteredProducts(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const breadcrumbs = [
     { label: "Home", path: "/" },
-    { label: categoryTitle }
+    { label: urlSearch ? `Search: "${urlSearch}"` : selectedCategory || selectedDressStyle || "Shop" }
   ];
 
   return (
@@ -116,6 +110,20 @@ const Category = () => {
           {/* Filter Sidebar (Desktop & Mobile Drawer) */}
           <div className="category-page__sidebar-wrapper">
             <FilterSidebar
+              categories={categories.map((c) => c.name)}
+              selectedCategory={selectedCategory}
+              onSelectCategory={(cat) => setSelectedCategory(cat === selectedCategory ? "" : cat)}
+              minPrice={0}
+              maxPrice={300}
+              currentPrice={currentPrice}
+              onPriceChange={(val) => setCurrentPrice(val)}
+              selectedColor={selectedColor}
+              onSelectColor={(color) => setSelectedColor(color.name === selectedColor ? "" : color.name)}
+              selectedSize={selectedSize}
+              onSelectSize={(size) => setSelectedSize(size === selectedSize ? "" : size)}
+              selectedDressStyle={selectedDressStyle}
+              onSelectDressStyle={(style) => setSelectedDressStyle(style === selectedDressStyle ? "" : style)}
+              onApplyFilter={() => fetchFilteredProducts(1)}
               isOpen={isFilterOpen}
               onClose={() => setIsFilterOpen(false)}
             />
@@ -125,16 +133,23 @@ const Category = () => {
           <section className="category-page__content">
             {/* Header & Controls Toolbar */}
             <div className="category-page__header">
-              <h1 className="category-page__title">{categoryTitle}</h1>
+              <h1 className="category-page__title">
+                {selectedCategory || selectedDressStyle || "Casual"}
+              </h1>
 
               <div className="category-page__toolbar">
                 <p className="category-page__count">
-                  Showing 1-10 of {totalProducts} Products
+                  Showing {products.length > 0 ? (currentPage - 1) * 9 + 1 : 0}-
+                  {Math.min(currentPage * 9, totalCount)} of {totalCount} Products
                 </p>
 
                 <div className="category-page__sort">
                   <span>Sort by:</span>
-                  <select className="category-page__sort-select" defaultValue="popular">
+                  <select
+                    className="category-page__sort-select"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                  >
                     <option value="popular">Most Popular</option>
                     <option value="low-high">Price: Low to High</option>
                     <option value="high-low">Price: High to Low</option>
@@ -158,25 +173,27 @@ const Category = () => {
 
             {/* Dynamic Products Grid */}
             <div className="category-page__grid">
-              {products && products.length > 0 ? (
-                products.map((product, index) => (
-                  <ProductCard
-                    key={product._id || product.id || index}
-                    product={product}
-                  />
+              {loading ? (
+                <div className="category-page__empty">Loading products...</div>
+              ) : products && products.length > 0 ? (
+                products.map((product) => (
+                  <ProductCard key={product._id} product={product} />
                 ))
               ) : (
-                <p className="category-page__empty">No products found</p>
+                <div className="category-page__empty">No products matched your filters.</div>
               )}
             </div>
 
             {/* Pagination */}
-            <div className="category-page__pagination-wrapper">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-              />
-            </div>
+            {totalPages > 1 && (
+              <div className="category-page__pagination-wrapper">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
           </section>
         </div>
       </div>

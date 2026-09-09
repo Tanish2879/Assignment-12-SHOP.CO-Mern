@@ -1,17 +1,21 @@
 import { useState } from "react";
 
 const Newsletter = ({
-  title = "STAY UP TO DATE ABOUT OUR LATEST OFFERS",
+  title = "STAY UPTO DATE ABOUT OUR LATEST OFFERS",
   placeholder = "Enter your email address",
   buttonText = "Subscribe to Newsletter",
   onSubscribe
 }) => {
   const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onSubscribe && email) {
-      onSubscribe(email);
+    if (email) {
+      if (onSubscribe) onSubscribe(email);
+      setSubscribed(true);
+      setTimeout(() => setSubscribed(false), 4000);
+      setEmail("");
     }
   };
 
@@ -26,8 +30,8 @@ const Newsletter = ({
           <div className="newsletter__input-wrapper">
             <svg
               className="newsletter__input-icon"
-              width="20"
-              height="20"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -36,8 +40,8 @@ const Newsletter = ({
               strokeLinejoin="round"
               aria-hidden="true"
             >
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,13 2,6" />
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
             <input
               type="email"
@@ -51,7 +55,7 @@ const Newsletter = ({
           </div>
 
           <button type="submit" className="newsletter__button">
-            {buttonText}
+            {subscribed ? "Subscribed!" : buttonText}
           </button>
         </form>
       </div>

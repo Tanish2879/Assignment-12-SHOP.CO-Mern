@@ -7,10 +7,10 @@ import gymImg from "../assets/images/style/gym.svg";
 const DressStyle = ({
   title = "BROWSE BY DRESS STYLE",
   styles = [
-    { name: "Casual", image: casualImg, link: "/shop?style=casual", gridClass: "dress-style__item--wide-left" },
-    { name: "Formal", image: formalImg, link: "/shop?style=formal", gridClass: "dress-style__item--wide-right" },
-    { name: "Party", image: partyImg, link: "/shop?style=party", gridClass: "dress-style__item--wide-right" },
-    { name: "Gym", image: gymImg, link: "/shop?style=gym", gridClass: "dress-style__item--wide-left" }
+    { name: "Casual", image: casualImg, link: "/shop?style=Casual", gridClass: "dress-style__item--wide-left" },
+    { name: "Formal", image: formalImg, link: "/shop?style=Formal", gridClass: "dress-style__item--wide-right" },
+    { name: "Party", image: partyImg, link: "/shop?style=Party", gridClass: "dress-style__item--wide-right" },
+    { name: "Gym", image: gymImg, link: "/shop?style=Gym", gridClass: "dress-style__item--wide-left" }
   ]
 }) => {
   return (

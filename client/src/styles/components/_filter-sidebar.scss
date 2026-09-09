@@ -25,12 +25,17 @@
     margin: 0;
   }
 
+  &__icon {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
   &__close-btn {
     display: none;
     background: none;
     border: none;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     cursor: pointer;
+    color: $colorblack;
   }
 
   &__divider {
@@ -71,12 +76,12 @@
     &:hover,
     &--active {
       color: $colorblack;
-      font-weight: 600;
+      font-weight: 700;
     }
   }
 
   &__arrow {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     color: rgba(0, 0, 0, 0.4);
   }
 
@@ -90,19 +95,21 @@
     width: 100%;
     accent-color: $colorblack;
     cursor: pointer;
+    height: 6px;
+    border-radius: 6px;
   }
 
   &__price-labels {
     display: flex;
     justify-content: space-between;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(0, 0, 0, 0.6);
   }
 
   &__current-price {
     color: $colorblack;
-    font-weight: 700;
+    font-weight: 800;
   }
 
   &__apply-btn {
@@ -112,14 +119,15 @@
     color: $colorwhite;
     border-radius: 62px;
     border: none;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 0.9375rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     margin-top: 0.5rem;
 
     &:hover {
-      background-color: #333333;
+      background-color: #222222;
+      transform: translateY(-1px);
     }
   }
 }
@@ -135,7 +143,7 @@
     max-width: 320px;
     overflow-y: auto;
     transition: left 0.3s ease;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
 
     &--open {
       left: 0;

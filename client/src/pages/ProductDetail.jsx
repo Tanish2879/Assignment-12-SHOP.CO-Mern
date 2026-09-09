@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import axios from "axios";
+import { useCart } from "../context/cartContext";
 import Breadcrumbs from "../components/Breadcrumbs";
 import StarRating from "../components/StarRating";
 import ColorSelector from "../components/ColorSelector";
@@ -8,36 +10,7 @@ import QuantitySelector from "../components/QuantitySelector";
 import ReviewCard from "../components/ReviewCard";
 import ProductCard from "../components/ProductCard";
 
-// Static mock image assets
-import p1 from "../assets/images/products/product1.png";
-import p2 from "../assets/images/products/product2.png";
-import p3 from "../assets/images/products/product3.png";
-import p4 from "../assets/images/products/product4.png";
-import p5 from "../assets/images/products/product5.png";
-import p6 from "../assets/images/products/product6.png";
-import p7 from "../assets/images/products/product7.png";
-
-const mockProduct = {
-  _id: "1",
-  name: "ONE LIFE GRAPHIC T-SHIRT",
-  rating: 4.5,
-  price: 260,
-  originalPrice: 300,
-  discount: 40,
-  description:
-    "This graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-  images: [p1, p2, p3],
-  category: "T-shirts",
-  colors: [
-    { name: "Olive", hex: "#4F4631" },
-    { name: "Forest", hex: "#314F4A" },
-    { name: "Navy", hex: "#31344F" }
-  ],
-  sizes: ["Small", "Medium", "Large", "X-Large"],
-  stock: 15
-};
-
-const mockReviews = [
+const defaultReviews = [
   {
     _id: "r1",
     name: "Samantha D.",
@@ -80,7 +53,7 @@ const mockReviews = [
     rating: 4.0,
     isVerified: true,
     comment:
-      "This t-shirt is a fusion of comfort and creativity. The fabric is soft, and the design speaks volumes about the designer's skill. It's like wearing a piece of art that reflects my passion for both design and fashion.",
+      "This t-shirt is a fusion of comfort and the latest trend. The fabric is breathable and the fit is just right. It's quickly become my favorite piece for everyday casual outings.",
     date: "Posted on August 18, 2023"
   },
   {
@@ -89,66 +62,127 @@ const mockReviews = [
     rating: 4.5,
     isVerified: true,
     comment:
-      "I'm not just wearing a t-shirt; I'm wearing a piece of design philosophy. The intricate details and thoughtful layout of the design make this shirt a conversation starter.",
+      "I'm not usually one to leave reviews, but this t-shirt completely blew me away. The attention to detail from the stitching to the print quality is top tier.",
     date: "Posted on August 19, 2023"
-  }
-];
-
-const mockRelatedProducts = [
-  {
-    _id: "p4",
-    name: "Polo with Contrast Trim",
-    image: p4,
-    rating: 4.0,
-    price: 212,
-    originalPrice: 242,
-    discount: 20
-  },
-  {
-    _id: "p5",
-    name: "Gradient Graphic T-shirt",
-    image: p5,
-    rating: 3.5,
-    price: 145
-  },
-  {
-    _id: "p6",
-    name: "Polo with Tipping Details",
-    image: p6,
-    rating: 4.5,
-    price: 180
-  },
-  {
-    _id: "p7",
-    name: "Black Striped T-shirt",
-    image: p7,
-    rating: 5.0,
-    price: 120,
-    originalPrice: 150,
-    discount: 30
   }
 ];
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { addToCart } = useCart();
 
-  // Dynamic state ready for API data
-  const product = mockProduct;
-  const reviews = mockReviews;
-  const relatedProducts = mockRelatedProducts;
+  const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]?.name);
+  const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("Large");
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("reviews");
+  const [addedNotice, setAddedNotice] = useState(false);
+  const [activeThumb, setActiveThumb] = useState(0);
+
+  // Fetch product from backend API
+  useEffect(() => {
+    const fetchProduct = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const res = await axios.get(`http://localhost:8000/api/v1/product/get-product/${id}`);
+        if (res.data?.success && res.data.product) {
+          const p = res.data.product;
+          setProduct(p);
+          setSelectedColor(p.colors?.[0] || "Default");
+          setSelectedSize(p.sizes?.[0] || "Large");
+
+          // Fetch related products
+          if (p.category?._id) {
+            fetchRelated(p._id, p.category._id);
+          }
+        } else {
+          setError("Product not found");
+        }
+      } catch (err) {
+        console.error("Error fetching single product:", err);
+        setError("Error loading product details");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchRelated = async (pid, cid) => {
+      try {
+        const res = await axios.get(`http://localhost:8000/api/v1/product/related-product/${pid}/${cid}`);
+        if (res.data?.success) {
+          setRelatedProducts(res.data.products || []);
+        }
+      } catch (err) {
+        console.error("Error fetching related products:", err);
+      }
+    };
+
+    if (id) {
+      fetchProduct();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [id]);
+
+  const handleAddToCart = () => {
+    if (!product || product.quantity <= 0) return;
+    addToCart(product, quantity, selectedSize, selectedColor);
+    setAddedNotice(true);
+    setTimeout(() => setAddedNotice(false), 3000);
+  };
+
+  if (loading) {
+    return (
+      <main className="product-detail-page">
+        <div className="product-detail-page__container" style={{ textAlign: "center", padding: "5rem 1rem" }}>
+          <h2>Loading product details...</h2>
+        </div>
+      </main>
+    );
+  }
+
+  if (error || !product) {
+    return (
+      <main className="product-detail-page">
+        <div className="product-detail-page__container" style={{ textAlign: "center", padding: "5rem 1rem" }}>
+          <h2>{error || "Product not found"}</h2>
+          <Link to="/shop" style={{ color: "#000", fontWeight: "700", display: "inline-block", marginTop: "1rem" }}>
+            ← Back to Shop
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  const isOutOfStock = product.quantity <= 0;
+  const isLowStock = product.quantity > 0 && product.quantity <= 5;
+  const photoUrl = `http://localhost:8000/api/v1/product/get-product-photo/${product._id}`;
 
   const breadcrumbs = [
     { label: "Home", path: "/" },
     { label: "Shop", path: "/shop" },
-    { label: "Men", path: "/shop?category=men" },
-    { label: product.category || "T-shirts" }
+    { label: "Men", path: "/shop" },
+    { label: product.category?.name || "T-shirts", path: `/shop?category=${product.category?.name || ""}` }
   ];
+
+  const colorOptions = product.colors && product.colors.length > 0
+    ? product.colors.map((c) => ({
+        name: c,
+        hex: c.toLowerCase() === "olive" ? "#4F4631" : c.toLowerCase() === "forest" || c.toLowerCase() === "green" ? "#314F4A" : c.toLowerCase() === "navy" || c.toLowerCase() === "blue" ? "#31344F" : c
+      }))
+    : [
+        { name: "Olive", hex: "#4F4631" },
+        { name: "Forest", hex: "#314F4A" },
+        { name: "Navy", hex: "#31344F" }
+      ];
+
+  const sizeOptions = product.sizes && product.sizes.length > 0
+    ? product.sizes
+    : ["Small", "Medium", "Large", "X-Large"];
 
   return (
     <main className="product-detail-page">
@@ -160,25 +194,25 @@ const ProductDetail = () => {
 
         {/* Product Hero (Gallery + Info) */}
         <section className="product-detail-page__hero">
-          {/* Gallery Section */}
+          {/* Gallery Section with 3 Thumbnails matching Figma */}
           <div className="product-detail-page__gallery">
             <div className="product-detail-page__thumbnails">
-              {product.images?.map((img, index) => (
+              {[0, 1, 2].map((idx) => (
                 <button
-                  key={index}
+                  key={idx}
                   type="button"
-                  className={`product-detail-page__thumb-btn ${selectedImage === index ? "product-detail-page__thumb-btn--active" : ""}`}
-                  onClick={() => setSelectedImage(index)}
-                  aria-label={`View image ${index + 1}`}
+                  className={`product-detail-page__thumb-btn ${activeThumb === idx ? "product-detail-page__thumb-btn--active" : ""}`}
+                  onClick={() => setActiveThumb(idx)}
+                  aria-label={`View angle ${idx + 1}`}
                 >
-                  <img src={img} alt={`${product.name} thumbnail ${index + 1}`} />
+                  <img src={photoUrl} alt="" />
                 </button>
               ))}
             </div>
 
             <div className="product-detail-page__main-image-wrapper">
               <img
-                src={product.images?.[selectedImage] || product.images?.[0]}
+                src={photoUrl}
                 alt={product.name}
                 className="product-detail-page__main-image"
               />
@@ -190,7 +224,7 @@ const ProductDetail = () => {
             <h1 className="product-detail-page__title">{product.name}</h1>
 
             <div className="product-detail-page__rating">
-              <StarRating rating={product.rating} />
+              <StarRating rating={product.rating || 4.5} size={20} />
             </div>
 
             <div className="product-detail-page__price-container">
@@ -198,8 +232,27 @@ const ProductDetail = () => {
               {product.originalPrice && (
                 <span className="product-detail-page__original-price">${product.originalPrice}</span>
               )}
-              {product.discount && (
-                <span className="product-detail-page__discount-badge">-{product.discount}%</span>
+              {product.originalPrice && (
+                <span className="product-detail-page__discount-badge">
+                  -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
+                </span>
+              )}
+            </div>
+
+            {/* Stock status indicator */}
+            <div>
+              {isOutOfStock ? (
+                <span style={{ color: "#ff3333", fontWeight: "700", fontSize: "0.9375rem" }}>
+                  ● OUT OF STOCK
+                </span>
+              ) : isLowStock ? (
+                <span style={{ color: "#ff9900", fontWeight: "600", fontSize: "0.875rem" }}>
+                  ● Only {product.quantity} left in stock!
+                </span>
+              ) : (
+                <span style={{ color: "#01ab31", fontWeight: "600", fontSize: "0.875rem" }}>
+                  ● In Stock ({product.quantity} available)
+                </span>
               )}
             </div>
 
@@ -210,7 +263,7 @@ const ProductDetail = () => {
             {/* Colors */}
             <ColorSelector
               title="Select Colors"
-              colors={product.colors}
+              colors={colorOptions}
               selectedColor={selectedColor}
               onSelectColor={(color) => setSelectedColor(color.name)}
             />
@@ -220,32 +273,44 @@ const ProductDetail = () => {
             {/* Sizes */}
             <SizeSelector
               title="Choose Size"
-              sizes={product.sizes}
+              sizes={sizeOptions}
               selectedSize={selectedSize}
               onSelectSize={(size) => setSelectedSize(size)}
             />
 
             <hr className="product-detail-page__divider" />
 
+            {/* Added to cart notification */}
+            {addedNotice && (
+              <div style={{ backgroundColor: "#e6f9ed", color: "#01ab31", padding: "0.75rem", borderRadius: "8px", fontWeight: "600", fontSize: "0.875rem" }}>
+                ✓ Added to cart successfully! <Link to="/cart" style={{ color: "#000", textDecoration: "underline", marginLeft: "0.5rem" }}>View Cart</Link>
+              </div>
+            )}
+
             {/* Quantity and Add to Cart */}
             <div className="product-detail-page__actions">
               <QuantitySelector
                 quantity={quantity}
-                onIncrease={() => setQuantity((q) => q + 1)}
+                min={1}
+                max={product.quantity || 99}
+                disabled={isOutOfStock}
+                onIncrease={() => setQuantity((q) => (q < (product.quantity || 99) ? q + 1 : q))}
                 onDecrease={() => setQuantity((q) => (q > 1 ? q - 1 : 1))}
               />
 
               <button
                 type="button"
                 className="product-detail-page__add-to-cart-btn"
+                onClick={handleAddToCart}
+                disabled={isOutOfStock}
               >
-                Add to Cart
+                {isOutOfStock ? "Out of Stock" : "Add to Cart"}
               </button>
             </div>
           </div>
         </section>
 
-        {/* Tabs Section */}
+        {/* Tabs Section matching Figma */}
         <section className="product-detail-page__tabs-section">
           <div className="product-detail-page__tabs-header">
             <button
@@ -276,19 +341,33 @@ const ProductDetail = () => {
             <div className="product-detail-page__reviews-tab">
               <div className="product-detail-page__reviews-toolbar">
                 <h3 className="product-detail-page__reviews-title">
-                  All Reviews <span>({reviews.length})</span>
+                  All Reviews <span>(451)</span>
                 </h3>
 
                 <div className="product-detail-page__reviews-actions">
+                  <button type="button" className="product-detail-page__filter-icon-btn" aria-label="Filter reviews">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="4" y1="21" x2="4" y2="14" />
+                      <line x1="4" y1="10" x2="4" y2="3" />
+                      <line x1="12" y1="21" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12" y2="3" />
+                      <line x1="20" y1="21" x2="20" y2="16" />
+                      <line x1="20" y1="12" x2="20" y2="3" />
+                      <line x1="1" y1="14" x2="7" y2="14" />
+                      <line x1="9" y1="8" x2="15" y2="8" />
+                      <line x1="17" y1="16" x2="23" y2="16" />
+                    </svg>
+                  </button>
+
                   <button type="button" className="product-detail-page__write-review-btn">
                     Write a Review
                   </button>
                 </div>
               </div>
 
-              {/* Dynamic Reviews Grid */}
+              {/* Reviews Grid */}
               <div className="product-detail-page__reviews-grid">
-                {reviews.map((rev) => (
+                {defaultReviews.map((rev) => (
                   <ReviewCard
                     key={rev._id}
                     name={rev.name}
@@ -309,15 +388,10 @@ const ProductDetail = () => {
           {/* Details Tab */}
           {activeTab === "details" && (
             <div className="product-detail-page__tab-content">
-              <p>
-                <strong>Material:</strong> 100% Premium Cotton
-              </p>
-              <p>
-                <strong>Fit:</strong> Regular relaxed fit with breathable fabric.
-              </p>
-              <p>
-                <strong>Care:</strong> Machine wash cold with like colors, tumble dry low.
-              </p>
+              <p><strong>Category:</strong> {product.category?.name || "Apparel"}</p>
+              <p><strong>Style:</strong> {product.dressStyle || "Casual"}</p>
+              <p><strong>Shipping:</strong> {product.shipping ? "Free Standard Shipping Available" : "Standard Delivery"}</p>
+              <p><strong>Care:</strong> Machine wash cold with like colors, tumble dry low.</p>
             </div>
           )}
 
@@ -339,14 +413,16 @@ const ProductDetail = () => {
         </section>
 
         {/* You Might Also Like Section */}
-        <section className="product-detail-page__related">
-          <h2 className="product-detail-page__related-title">YOU MIGHT ALSO LIKE</h2>
-          <div className="product-section__grid">
-            {relatedProducts.map((relProd) => (
-              <ProductCard key={relProd._id} product={relProd} />
-            ))}
-          </div>
-        </section>
+        {relatedProducts && relatedProducts.length > 0 && (
+          <section className="product-detail-page__related">
+            <h2 className="product-detail-page__related-title">YOU MIGHT ALSO LIKE</h2>
+            <div className="product-section__grid">
+              {relatedProducts.slice(0, 4).map((relProd) => (
+                <ProductCard key={relProd._id} product={relProd} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );

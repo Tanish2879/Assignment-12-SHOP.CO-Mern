@@ -225,6 +225,149 @@
       }
     }
   }
+
+  /* Modal Overlay & Dialog */
+  &__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 1rem;
+  }
+
+  &__modal {
+    background-color: $colorwhite;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  &__modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  &__modal-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0;
+    color: $colorblack;
+  }
+
+  &__modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+    &:hover {
+      color: $colorblack;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    input, select, textarea {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: $colorblack;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+  }
+
+  &__form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  &__btn-cancel {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 0.6rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      background-color: #e4e4e4;
+    }
+  }
+
+  &__btn-submit {
+    background-color: $colorblack;
+    color: $colorwhite;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      background-color: #333;
+    }
+  }
+
+  &__product-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: #f0f0f0;
+    vertical-align: middle;
+    margin-right: 0.75rem;
+  }
 }
 
 @media (max-width: 48rem) {
@@ -240,3 +383,4 @@
     }
   }
 }
+
