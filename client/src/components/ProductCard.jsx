@@ -11,7 +11,7 @@ const ProductCard = (props) => {
   const price = product.price || 0;
   const originalPrice = product.originalPrice;
   const discount = product.discount || (product.originalPrice ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : null);
-  const rating = product.rating || 4.5;
+  const rating = typeof product.rating === "number" ? product.rating : (product.rating ? Number(product.rating) : 4.5);
 
   return (
     <div className="product-card">

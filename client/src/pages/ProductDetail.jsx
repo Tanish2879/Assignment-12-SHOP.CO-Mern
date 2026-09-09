@@ -224,7 +224,7 @@ const ProductDetail = () => {
             <h1 className="product-detail-page__title">{product.name}</h1>
 
             <div className="product-detail-page__rating">
-              <StarRating rating={product.rating || 4.5} size={20} />
+              <StarRating rating={typeof product.rating === "number" ? product.rating : (product.rating ? Number(product.rating) : 4.5)} size={20} />
             </div>
 
             <div className="product-detail-page__price-container">

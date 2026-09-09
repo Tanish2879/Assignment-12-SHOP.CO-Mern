@@ -14,20 +14,9 @@
   }
 
   .star {
-    line-height: 1;
-
-    &--full {
-      color: $color-star;
-    }
-
-    &--half {
-      color: $color-star;
-      opacity: 0.85;
-    }
-
-    &--empty {
-      color: rgba(0, 0, 0, 0.15);
-    }
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
   }
 
   &__score {
