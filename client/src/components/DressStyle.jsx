@@ -27,7 +27,7 @@ const DressStyle = ({
               to={style.link}
               className={`dress-style__card ${style.gridClass || ""}`}
             >
-              <span className="dress-style__card-name">{style.name}</span>
+              <span className="dress-style__card-name"></span>
               <img
                 src={style.image}
                 alt={`${style.name} style`}

@@ -137,3 +137,70 @@
     font-size: 1.25rem;
   }
 }
+
+@media (max-width: 48rem) {
+  .order-summary {
+    padding: 1.25rem;
+    border-radius: 16px;
+
+    &__title {
+      font-size: 1.25rem;
+      margin-bottom: 1.15rem;
+    }
+
+    &__rows {
+      gap: 0.875rem;
+      margin-bottom: 1.15rem;
+    }
+
+    &__label {
+      font-size: 0.95rem;
+    }
+
+    &__value {
+      font-size: 1.1rem;
+
+      &--total {
+        font-size: 1.25rem;
+      }
+    }
+
+    &__promo-form {
+      gap: 0.5rem;
+      margin-bottom: 1.15rem;
+    }
+
+    &__promo-input {
+      height: 2.75rem;
+      font-size: 0.875rem;
+      padding: 0 0.75rem 0 2.5rem;
+    }
+
+    &__promo-icon {
+      left: 0.85rem;
+    }
+
+    &__apply-btn {
+      height: 2.75rem;
+      padding: 0 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    &__checkout-btn {
+      height: 3.25rem;
+      font-size: 0.9375rem;
+    }
+  }
+}
+
+@media (max-width: 24rem) {
+  .order-summary {
+    padding: 1rem;
+    border-radius: 14px;
+
+    &__apply-btn {
+      padding: 0 1rem;
+      font-size: 0.8125rem;
+    }
+  }
+}

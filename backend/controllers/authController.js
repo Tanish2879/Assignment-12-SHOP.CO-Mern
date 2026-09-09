@@ -102,6 +102,12 @@ const loginController = async (req, res) => {
             });
         }
 
+        // If existing password was plain text, automatically hash it in database
+        if (typeof user.password === "string" && !/^\$2[aby]\$/.test(user.password)) {
+            const newHashed = await hashPassword(password);
+            await userModel.findByIdAndUpdate(user._id, { password: newHashed });
+        }
+
         const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
             expiresIn: "7d",
         });

@@ -103,18 +103,43 @@
 
 @media (max-width: 48rem) {
   .product-card {
+    min-width: 0;
+
+    &__image-wrapper {
+      border-radius: 14px;
+      margin-bottom: 0.625rem;
+    }
+
     &__title {
       font-size: 0.9375rem;
     }
 
+    &__price-container {
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
     &__current-price,
     &__original-price {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
     }
 
     &__discount-badge {
-      font-size: 0.6875rem;
-      padding: 0.2rem 0.5rem;
+      font-size: 0.625rem;
+      padding: 0.2rem 0.45rem;
+    }
+  }
+}
+
+@media (max-width: 24rem) {
+  .product-card {
+    &__title {
+      font-size: 0.8125rem;
+    }
+
+    &__current-price,
+    &__original-price {
+      font-size: 1rem;
     }
   }
 }

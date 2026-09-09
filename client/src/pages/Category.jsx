@@ -30,6 +30,19 @@ const Category = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Sync filters if URL search params change
+  useEffect(() => {
+    if (urlCategory !== null && urlCategory !== undefined) {
+      setSelectedCategory(urlCategory);
+    }
+    if (urlStyle !== null && urlStyle !== undefined) {
+      setSelectedDressStyle(urlStyle);
+    }
+    if (urlFilter === "new") {
+      setSortBy("newest");
+    }
+  }, [urlCategory, urlStyle, urlFilter]);
+
   // Fetch all categories from backend
   useEffect(() => {
     const fetchCategories = async () => {
@@ -58,8 +71,10 @@ const Category = () => {
         if (matched) checkedCats.push(matched._id);
       }
 
+      const trimmedKeyword = urlSearch && typeof urlSearch === "string" ? urlSearch.trim() : "";
+
       const payload = {
-        keyword: urlSearch || undefined,
+        keyword: trimmedKeyword || undefined,
         checked: checkedCats,
         radio: [0, currentPrice],
         colors: selectedColor ? [selectedColor] : [],

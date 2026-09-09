@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import versaceLogo from "../assets/images/versace.svg";
 import zaraLogo from "../assets/images/zara.svg";
 import gucciLogo from "../assets/images/gucci.svg";
@@ -17,9 +18,14 @@ const Brands = ({
     <section className="brands" id="brands" aria-label="Featured Brands">
       <div className="brands__container">
         {brands.map((brand, index) => (
-          <div key={index} className="brands__item">
+          <Link
+            key={index}
+            to={`/shop?search=${encodeURIComponent(brand.name)}`}
+            className="brands__item"
+            title={`Shop ${brand.name}`}
+          >
             <img src={brand.logo} alt={brand.name} className="brands__logo" />
-          </div>
+          </Link>
         ))}
       </div>
     </section>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import heroImg from "../assets/images/heroimage.svg";
+import heroImg from "../assets/images/style/heroimage.jpg";
 import bigStar from "../assets/bigstar.svg";
 import smallStar from "../assets/smallstar.svg";
 

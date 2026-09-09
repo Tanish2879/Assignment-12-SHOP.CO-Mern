@@ -5,12 +5,39 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Load cart from localStorage
+  // Load cart from localStorage and sync stock limits
   useEffect(() => {
     try {
       const stored = localStorage.getItem("cart");
       if (stored) {
-        setCartItems(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        setCartItems(parsed);
+
+        // Fetch current stock from server to ensure limits are always fresh and accurate
+        parsed.forEach(async (item) => {
+          const prodId = item._id || item.id || item.product;
+          if (prodId) {
+            try {
+              const res = await fetch(`http://localhost:8000/api/v1/product/get-product/${prodId}`);
+              const data = await res.json();
+              if (data?.success && data.product) {
+                const stock = typeof data.product.quantity === "number" ? data.product.quantity : 99;
+                setCartItems((prev) =>
+                  prev.map((it) => {
+                    const itId = it._id || it.id || it.product;
+                    if (itId === prodId) {
+                      const cappedQty = Math.min(stock, it.quantity);
+                      return { ...it, maxStock: stock, quantity: cappedQty > 0 ? cappedQty : 1 };
+                    }
+                    return it;
+                  })
+                );
+              }
+            } catch (e) {
+              // Ignore network errors in background sync
+            }
+          }
+        });
       }
     } catch (err) {
       console.error("Failed to load cart from localStorage", err);
@@ -28,6 +55,10 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product, quantity = 1, size = "Medium", color = "Default") => {
     const prodId = product._id || product.id || product.product;
+    const availableStock = typeof product.quantity === "number" ? product.quantity : 99;
+
+    if (availableStock <= 0) return;
+
     setCartItems((prev) => {
       const existingIndex = prev.findIndex(
         (item) => (item.id === prodId || item._id === prodId) && item.size === size && item.color === color
@@ -35,7 +66,10 @@ export const CartProvider = ({ children }) => {
 
       if (existingIndex > -1) {
         const updated = [...prev];
-        updated[existingIndex].quantity += quantity;
+        const currentQty = updated[existingIndex].quantity;
+        const newTotalQty = Math.min(availableStock, currentQty + quantity);
+        updated[existingIndex].quantity = newTotalQty;
+        updated[existingIndex].maxStock = availableStock;
         return updated;
       }
 
@@ -48,8 +82,8 @@ export const CartProvider = ({ children }) => {
         price: product.price,
         size,
         color,
-        quantity,
-        maxStock: product.quantity || 99
+        quantity: Math.min(availableStock, Math.max(1, quantity)),
+        maxStock: availableStock
       };
 
       return [...prev, newItem];
@@ -58,7 +92,10 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = (itemId, size, color) => {
     setCartItems((prev) =>
-      prev.filter((item) => !(item.id === itemId && item.size === size && item.color === color))
+      prev.filter((item) => {
+        const itId = item.id || item._id || item.product;
+        return !(itId === itemId && item.size === size && item.color === color);
+      })
     );
   };
 
@@ -69,8 +106,11 @@ export const CartProvider = ({ children }) => {
     }
     setCartItems((prev) =>
       prev.map((item) => {
-        if (item.id === itemId && item.size === size && item.color === color) {
-          return { ...item, quantity: newQty };
+        const itId = item.id || item._id || item.product;
+        if (itId === itemId && item.size === size && item.color === color) {
+          const maxStock = typeof item.maxStock === "number" ? item.maxStock : 99;
+          const cappedQty = Math.min(maxStock, Math.max(1, newQty));
+          return { ...item, quantity: cappedQty, maxStock };
         }
         return item;
       })

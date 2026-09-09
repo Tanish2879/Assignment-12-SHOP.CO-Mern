@@ -301,12 +301,23 @@ const productFilterController = async (req, res) => {
             colors = [],
             sizes = [],
             dressStyle,
+            keyword,
             sortBy,
             page = 1,
             limit = 12,
         } = req.body;
 
         let args = {};
+
+        // Keyword search filter
+        if (keyword && typeof keyword === "string" && keyword.trim() !== "") {
+            const escapedKeyword = keyword.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            args.$or = [
+                { name: { $regex: escapedKeyword, $options: "i" } },
+                { description: { $regex: escapedKeyword, $options: "i" } },
+                { dressStyle: { $regex: escapedKeyword, $options: "i" } },
+            ];
+        }
 
         // Category filter
         if (checked && checked.length > 0) {
@@ -346,9 +357,9 @@ const productFilterController = async (req, res) => {
 
         // Sorting options
         let sortOption = { createdAt: -1 };
-        if (sortBy === "price-asc") {
+        if (sortBy === "price-asc" || sortBy === "price-low") {
             sortOption = { price: 1 };
-        } else if (sortBy === "price-desc") {
+        } else if (sortBy === "price-desc" || sortBy === "price-high") {
             sortOption = { price: -1 };
         } else if (sortBy === "newest") {
             sortOption = { createdAt: -1 };
@@ -371,6 +382,7 @@ const productFilterController = async (req, res) => {
         res.status(200).send({
             success: true,
             total,
+            totalCount: total,
             page: Number(page),
             totalPages: Math.ceil(total / Number(limit)),
             products,
@@ -584,14 +596,20 @@ const checkoutOrderController = async (req, res) => {
 
         // 1. Validate each product & inventory in DB and pull actual prices
         for (const item of cartItems) {
-            const productId = item._id || item.product;
-            const quantity = Number(item.quantity) || 1;
+            const productId = item._id || item.id || item.product;
+            if (!productId || !mongoose.Types.ObjectId.isValid(productId)) {
+                return res.status(400).send({
+                    success: false,
+                    message: `Invalid product ID in cart for item: ${item.name || "Unknown"}`,
+                });
+            }
 
+            const quantity = Number(item.quantity) || 1;
             const product = await productModel.findById(productId);
             if (!product) {
                 return res.status(404).send({
                     success: false,
-                    message: `Product with ID ${productId} not found`,
+                    message: `Product "${item.name || productId}" was not found`,
                 });
             }
 

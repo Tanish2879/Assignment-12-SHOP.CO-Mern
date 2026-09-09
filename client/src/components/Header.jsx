@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { useCart } from "../context/cartContext";
 import logo from "../assets/images/SHOP.CO.png";
@@ -18,24 +18,85 @@ const Header = ({
   ]
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [localSearch, setLocalSearch] = useState(searchQuery);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const urlSearch = searchParams.get("search") || "";
+  const [localSearch, setLocalSearch] = useState(urlSearch || searchQuery);
   const navigate = useNavigate();
   const { cartCount: contextCartCount } = useCart();
   const cartCount = propCartCount !== undefined ? propCartCount : contextCartCount;
+
+  // Keep local search input in sync if URL query parameter changes
+  useEffect(() => {
+    setLocalSearch(urlSearch || searchQuery || "");
+  }, [urlSearch, searchQuery]);
+
+  // Debounced search effect: delays route/param update until user stops typing
+  useEffect(() => {
+    const trimmed = localSearch.trim();
+    // If local search already matches the active URL search query, avoid redundant updates
+    if (trimmed === (urlSearch || "").trim()) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      if (trimmed) {
+        if (location.pathname === "/shop" || location.pathname === "/category") {
+          const newParams = new URLSearchParams(searchParams);
+          newParams.set("search", trimmed);
+          setSearchParams(newParams, { replace: true });
+        } else {
+          navigate(`/shop?search=${encodeURIComponent(trimmed)}`);
+        }
+      } else {
+        // If search bar is cleared, reset search query
+        if (urlSearch) {
+          if (location.pathname === "/shop" || location.pathname === "/category") {
+            const newParams = new URLSearchParams(searchParams);
+            newParams.delete("search");
+            setSearchParams(newParams, { replace: true });
+          } else {
+            navigate("/shop", { replace: true });
+          }
+        }
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [localSearch, urlSearch, location.pathname, searchParams, setSearchParams, navigate]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
   };
 
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setLocalSearch(value);
+    if (onSearchChange) onSearchChange(value);
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
-    const query = (localSearch || searchQuery).trim();
+    const query = (localSearch || "").trim();
     if (onSearchSubmit) {
       onSearchSubmit(query);
     } else if (query) {
-      navigate(`/shop?search=${encodeURIComponent(query)}`);
+      if (location.pathname === "/shop" || location.pathname === "/category") {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("search", query);
+        setSearchParams(newParams, { replace: true });
+      } else {
+        navigate(`/shop?search=${encodeURIComponent(query)}`);
+      }
     } else {
-      navigate("/shop");
+      if (location.pathname === "/shop" || location.pathname === "/category") {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.delete("search");
+        setSearchParams(newParams, { replace: true });
+      } else {
+        navigate("/shop");
+      }
     }
   };
 
@@ -51,23 +112,25 @@ const Header = ({
   return (
     <header className="site-header">
       <div className="site-header__container">
-        {/* Mobile menu toggle button */}
-        <button
-          type="button"
-          className={`site-header__menu-toggle ${isMobileMenuOpen ? "site-header__menu-toggle--active" : ""}`}
-          aria-label="Toggle Navigation Menu"
-          aria-expanded={isMobileMenuOpen}
-          onClick={toggleMobileMenu}
-        >
-          <span className="site-header__hamburger-bar" />
-          <span className="site-header__hamburger-bar" />
-          <span className="site-header__hamburger-bar" />
-        </button>
+        {/* Left: Mobile menu toggle + Brand Logo */}
+        <div className="site-header__left">
+          <button
+            type="button"
+            className={`site-header__menu-toggle ${isMobileMenuOpen ? "site-header__menu-toggle--active" : ""}`}
+            aria-label="Toggle Navigation Menu"
+            aria-expanded={isMobileMenuOpen}
+            onClick={toggleMobileMenu}
+          >
+            <span className="site-header__hamburger-bar" />
+            <span className="site-header__hamburger-bar" />
+            <span className="site-header__hamburger-bar" />
+          </button>
 
-        {/* Brand Logo */}
-        <Link to="/" className="site-header__logo-link">
-          <img src={logo} alt="SHOP.CO" className="site-header__logo" />
-        </Link>
+          {/* Brand Logo */}
+          <Link to="/" className="site-header__logo-link">
+            <img src={logo} alt="SHOP.CO" className="site-header__logo" />
+          </Link>
+        </div>
 
         {/* Navigation Links */}
         <nav
@@ -109,7 +172,10 @@ const Header = ({
         </nav>
 
         {/* Search Bar */}
-        <form className="site-header__search" onSubmit={handleSearch}>
+        <form
+          className={`site-header__search ${isMobileSearchOpen ? "site-header__search--mobile-open" : ""}`}
+          onSubmit={handleSearch}
+        >
           <svg
             aria-hidden="true"
             className="site-header__search-icon"
@@ -131,20 +197,19 @@ const Header = ({
             placeholder="Search for products..."
             className="site-header__search-input"
             value={localSearch}
-            onChange={(e) => {
-              setLocalSearch(e.target.value);
-              if (onSearchChange) onSearchChange(e.target.value);
-            }}
+            onChange={handleSearchChange}
+            onInput={handleSearchChange}
           />
         </form>
 
         {/* Header Action Icons */}
         <div className="site-header__actions">
-          {/* Mobile search toggle button (visual only) */}
+          {/* Mobile search toggle button */}
           <button
             type="button"
-            className="site-header__action-btn site-header__action-btn--mobile-search"
+            className={`site-header__action-btn site-header__action-btn--mobile-search ${isMobileSearchOpen ? "site-header__action-btn--active" : ""}`}
             aria-label="Open Search"
+            onClick={() => setIsMobileSearchOpen((prev) => !prev)}
           >
             <svg
               width="22"
@@ -221,13 +286,15 @@ const Header = ({
                       <span>{auth.user.role === 1 ? "Administrator" : "Customer"}</span>
                     </div>
 
-                    <Link
-                      to="/admin"
-                      className="site-header__dropdown-item"
-                      onClick={() => setAdminMenuOpen(false)}
-                    >
-                      Admin Panel
-                    </Link>
+                    {auth.user.role === 1 && (
+                      <Link
+                        to="/admin"
+                        className="site-header__dropdown-item"
+                        onClick={() => setAdminMenuOpen(false)}
+                      >
+                        Admin Panel
+                      </Link>
+                    )}
 
                     <Link
                       to="/profile"
@@ -274,14 +341,6 @@ const Header = ({
                       onClick={() => setAdminMenuOpen(false)}
                     >
                       Sign Up
-                    </Link>
-
-                    <Link
-                      to="/admin"
-                      className="site-header__dropdown-item"
-                      onClick={() => setAdminMenuOpen(false)}
-                    >
-                      Admin Panel
                     </Link>
                   </>
                 )}

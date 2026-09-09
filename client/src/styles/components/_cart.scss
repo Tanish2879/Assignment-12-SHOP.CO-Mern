@@ -231,11 +231,64 @@
 @media (max-width: 62rem) {
   .cart-page {
     &__title {
-      font-size: 2rem;
+      font-size: 2.25rem;
     }
 
     &__content {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 48rem) {
+  .cart-page {
+    padding: 1rem 1rem 3rem;
+
+    &__title {
+      font-size: 1.875rem;
+      margin-bottom: 1.25rem;
+    }
+
+    &__content {
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    &__items-container {
+      padding: 0.875rem 1rem;
+      border-radius: 16px;
+    }
+
+    &__modal {
+      padding: 1.25rem;
+      border-radius: 16px;
+      max-height: 85vh;
+    }
+
+    &__modal-title {
+      font-size: 1.25rem;
+    }
+
+    &__form-row {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 24rem) {
+  .cart-page {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__items-container {
+      padding: 0.75rem;
+      border-radius: 14px;
     }
   }
 }

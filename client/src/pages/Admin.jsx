@@ -1,10 +1,20 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/authContext";
 
 const Admin = () => {
   const [auth] = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("dashboard");
+
+  useEffect(() => {
+    if (!auth?.token) {
+      navigate("/login", { replace: true });
+    } else if (auth?.user?.role !== 1) {
+      navigate("/", { replace: true });
+    }
+  }, [auth?.token, auth?.user?.role, navigate]);
 
   // Dashboard Stats
   const [stats, setStats] = useState({
@@ -278,6 +288,10 @@ const Admin = () => {
       showNotification("error", "Failed to delete category");
     }
   };
+
+  if (!auth?.token || auth?.user?.role !== 1) {
+    return null;
+  }
 
   return (
     <main className="admin-page">

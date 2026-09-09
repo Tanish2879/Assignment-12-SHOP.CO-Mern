@@ -28,6 +28,7 @@
     margin-bottom: 1.5rem;
     text-transform: uppercase;
     letter-spacing: -1.5px;
+    width: 31rem;
   }
 
   &__subtitle {
@@ -97,7 +98,7 @@
   &__media {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: flex-end;
     height: 100%;
     align-self: end;
@@ -105,9 +106,9 @@
 
   &__image {
     width: 100%;
-    max-height: 560px;
+    max-height: 580px;
     object-fit: contain;
-    object-position: bottom center;
+    object-position: bottom right;
     display: block;
     position: relative;
     z-index: 1;
@@ -119,17 +120,17 @@
     pointer-events: none;
 
     &--big {
-      top: 8%;
-      right: 4%;
-      width: 5rem;
-      height: 5rem;
+      top: 10%;
+      right: 2%;
+      width: 5.5rem;
+      height: 5.5rem;
     }
 
     &--small {
       top: 42%;
-      left: 2%;
-      width: 3.25rem;
-      height: 3.25rem;
+      left: 6%;
+      width: 3.5rem;
+      height: 3.5rem;
     }
   }
 }
@@ -140,20 +141,24 @@
       grid-template-columns: 1fr;
       text-align: left;
       padding-top: 2rem;
+      padding-bottom: 0;
       min-height: auto;
     }
 
     &__content {
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
     }
 
     &__title {
       font-size: 2.5rem;
+      width: 100%;
+      max-width: 100%;
     }
 
     &__cta-btn {
       width: 100%;
       text-align: center;
+      margin-bottom: 2rem;
     }
 
     &__statistics {
@@ -161,11 +166,35 @@
     }
 
     &__media {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      position: relative;
     }
 
     &__image {
-      max-height: 420px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 440px;
+      height: auto;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    &__star--big {
+      top: 8%;
+      right: 6%;
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+
+    &__star--small {
+      top: 40%;
+      left: 4%;
+      width: 2.75rem;
+      height: 2.75rem;
     }
   }
 }
@@ -180,7 +209,7 @@
     &__statistics {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      gap: 1.25rem;
       text-align: center;
     }
 
@@ -192,14 +221,23 @@
       grid-column: span 2;
     }
 
+    &__stat-value {
+      font-size: 1.875rem;
+    }
+
+    &__image {
+      max-width: 390px;
+      max-height: 380px;
+    }
+
     &__star--big {
-      width: 4rem;
-      height: 4rem;
+      width: 3.75rem;
+      height: 3.75rem;
     }
 
     &__star--small {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.25rem;
+      height: 2.25rem;
     }
   }
 }

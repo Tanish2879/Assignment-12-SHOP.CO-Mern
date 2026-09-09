@@ -26,7 +26,7 @@
     margin: 0 0 1.5rem;
     color: $colordark;
     font-size: 1.5rem;
-    font-weight: 900;
+    font-weight: 1000;
 }
 
 .login__title {
@@ -63,9 +63,9 @@
 .login__input {
     width: 100%;
     padding: 0.875rem 1rem;
-    border: 1px solid $color-border;
+    border: 1px solid rgb(66, 64, 64);;
     border-radius: 0.5rem;
-    background: $color-border;
+    background: $colorwhite;
     color: $colorblack;
     font: inherit;
     box-sizing: border-box;

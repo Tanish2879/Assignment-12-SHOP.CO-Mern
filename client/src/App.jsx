@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TopBanner from "./components/TopBanner";
@@ -13,10 +13,13 @@ import Admin from "./pages/Admin";
 import ProductDetail from "./pages/ProductDetail";
 
 const App = () => {
+  const location = useLocation();
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+
   return (
     <>
-      <TopBanner />
-      <Header />
+      {!isAuthPage && <TopBanner />}
+      {!isAuthPage && <Header />}
 
       <Routes>
         <Route path="/" element={<Home />} />

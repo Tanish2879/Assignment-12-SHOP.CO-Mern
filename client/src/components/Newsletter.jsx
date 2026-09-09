@@ -49,7 +49,6 @@ const Newsletter = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="newsletter__input"
-              required
               aria-label="Email Address"
             />
           </div>

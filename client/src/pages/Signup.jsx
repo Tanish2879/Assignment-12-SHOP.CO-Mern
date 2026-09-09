@@ -17,16 +17,50 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    const trimmedEmail = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name.trim()) {
+      setError("Please enter your full name");
+      return;
+    }
+
+    if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    if (!password || password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+
+    if (!phone.trim()) {
+      setError("Please enter your phone number");
+      return;
+    }
+
+    if (!address.trim()) {
+      setError("Please enter your address");
+      return;
+    }
+
+    if (!answer.trim()) {
+      setError("Please provide an answer to the security question");
+      return;
+    }
+
     setLoading(true);
 
     try {
       const res = await axios.post("http://localhost:8000/api/v1/auth/register", {
-        name,
-        email,
+        name: name.trim(),
+        email: trimmedEmail,
         password,
-        phone,
-        address,
-        answer
+        phone: phone.trim(),
+        address: address.trim(),
+        answer: answer.trim()
       });
 
       if (res.data && res.data.success) {
@@ -72,7 +106,6 @@ const Signup = () => {
               placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
             />
           </div>
 
@@ -88,7 +121,6 @@ const Signup = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
           </div>
 
@@ -104,7 +136,6 @@ const Signup = () => {
               placeholder="Create a password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
             />
           </div>
 
@@ -120,7 +151,6 @@ const Signup = () => {
               placeholder="Enter your phone number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              required
             />
           </div>
 
@@ -136,7 +166,6 @@ const Signup = () => {
               placeholder="Enter your full address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              required
             />
           </div>
 
@@ -152,7 +181,6 @@ const Signup = () => {
               placeholder="Enter answer (used for password reset)"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
-              required
             />
           </div>
 

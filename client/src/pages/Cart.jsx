@@ -240,6 +240,7 @@ const Cart = () => {
                   color={item.color}
                   price={item.price}
                   quantity={item.quantity}
+                  maxStock={typeof item.maxStock === "number" ? item.maxStock : 99}
                   onQuantityChange={(id, qty) => updateQuantity(prodId, item.size, item.color, qty)}
                   onRemove={() => removeFromCart(prodId, item.size, item.color)}
                 />
@@ -304,7 +305,6 @@ const Cart = () => {
                   <label>Full Name *</label>
                   <input
                     type="text"
-                    required
                     value={shippingForm.fullName}
                     onChange={(e) => setShippingForm({ ...shippingForm, fullName: e.target.value })}
                     placeholder="John Doe"
@@ -315,7 +315,6 @@ const Cart = () => {
                   <label>Phone Number *</label>
                   <input
                     type="tel"
-                    required
                     value={shippingForm.phone}
                     onChange={(e) => setShippingForm({ ...shippingForm, phone: e.target.value })}
                     placeholder="+1 (555) 000-0000"
@@ -327,7 +326,6 @@ const Cart = () => {
                 <label>Street Address *</label>
                 <input
                   type="text"
-                  required
                   value={shippingForm.address}
                   onChange={(e) => setShippingForm({ ...shippingForm, address: e.target.value })}
                   placeholder="123 Main Street, Apt 4B"
@@ -339,7 +337,6 @@ const Cart = () => {
                   <label>City *</label>
                   <input
                     type="text"
-                    required
                     value={shippingForm.city}
                     onChange={(e) => setShippingForm({ ...shippingForm, city: e.target.value })}
                     placeholder="New York"
@@ -350,7 +347,6 @@ const Cart = () => {
                   <label>State / Province *</label>
                   <input
                     type="text"
-                    required
                     value={shippingForm.state}
                     onChange={(e) => setShippingForm({ ...shippingForm, state: e.target.value })}
                     placeholder="NY"
@@ -363,7 +359,6 @@ const Cart = () => {
                   <label>Postal / Zip Code *</label>
                   <input
                     type="text"
-                    required
                     value={shippingForm.postalCode}
                     onChange={(e) => setShippingForm({ ...shippingForm, postalCode: e.target.value })}
                     placeholder="10001"
@@ -374,7 +369,6 @@ const Cart = () => {
                   <label>Country *</label>
                   <input
                     type="text"
-                    required
                     value={shippingForm.country}
                     onChange={(e) => setShippingForm({ ...shippingForm, country: e.target.value })}
                     placeholder="United States"

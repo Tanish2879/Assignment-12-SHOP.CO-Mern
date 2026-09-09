@@ -185,7 +185,7 @@ const ProductDetail = () => {
     : ["Small", "Medium", "Large", "X-Large"];
 
   return (
-    <main className="product-detail-page">
+    <main className="product-detail-page"> 
       <div className="product-detail-page__container">
         {/* Breadcrumb Navigation */}
         <div className="product-detail-page__breadcrumbs-wrapper">

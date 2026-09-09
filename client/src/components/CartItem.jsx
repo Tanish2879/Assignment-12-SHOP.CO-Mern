@@ -8,6 +8,7 @@ const CartItem = ({
   color = "White",
   price = 145,
   quantity = 1,
+  maxStock = 99,
   onQuantityChange,
   onRemove
 }) => {
@@ -62,8 +63,18 @@ const CartItem = ({
 
           <QuantitySelector
             quantity={quantity}
-            onIncrease={() => onQuantityChange && onQuantityChange(id, quantity + 1)}
-            onDecrease={() => onQuantityChange && onQuantityChange(id, Math.max(1, quantity - 1))}
+            min={1}
+            max={maxStock}
+            onIncrease={() => {
+              if (quantity < maxStock && onQuantityChange) {
+                onQuantityChange(id, quantity + 1);
+              }
+            }}
+            onDecrease={() => {
+              if (quantity > 1 && onQuantityChange) {
+                onQuantityChange(id, quantity - 1);
+              }
+            }}
           />
         </div>
       </div>

@@ -112,6 +112,8 @@
 /* Mobile & Tablet responsiveness */
 @media (max-width: 62rem) {
   .category-page {
+    padding: 1.25rem 1rem 3.5rem;
+
     &__sidebar-wrapper {
       display: none;
     }
@@ -121,26 +123,47 @@
     }
 
     &__grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
     }
   }
 }
 
 @media (max-width: 36rem) {
   .category-page {
-    padding-top: 1rem;
+    padding-top: 0.75rem;
 
     &__title {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
     }
 
     &__count {
       display: none;
     }
 
-    &__grid {
-      grid-template-columns: repeat(2, 1fr);
+    &__toolbar {
       gap: 0.75rem;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 24rem) {
+  .category-page {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+
+    &__title {
+      font-size: 1.35rem;
+    }
+
+    &__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
     }
   }
 }

@@ -123,7 +123,6 @@ const Profile = () => {
                   className="account-page__input"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  required
                 />
               </div>
 
@@ -151,7 +150,6 @@ const Profile = () => {
                   className="account-page__input"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  required
                 />
               </div>
 
@@ -179,7 +177,6 @@ const Profile = () => {
                   className="account-page__input"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  required
                 />
               </div>
             </div>
