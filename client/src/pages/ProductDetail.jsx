@@ -9,6 +9,7 @@ import SizeSelector from "../components/SizeSelector";
 import QuantitySelector from "../components/QuantitySelector";
 import ReviewCard from "../components/ReviewCard";
 import ProductCard from "../components/ProductCard";
+import Newsletter from "../components/Newsletter";
 
 const defaultReviews = [
   {
@@ -424,6 +425,7 @@ const ProductDetail = () => {
           </section>
         )}
       </div>
+      <Newsletter/>
     </main>
   );
 };

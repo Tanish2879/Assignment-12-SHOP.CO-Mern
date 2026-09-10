@@ -5,6 +5,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import FilterSidebar from "../components/FilterSidebar";
 import ProductCard from "../components/ProductCard";
 import Pagination from "../components/Pagination";
+import Newsletter from "../components/Newsletter";
 
 const Category = () => {
   const [searchParams] = useSearchParams();
@@ -212,6 +213,7 @@ const Category = () => {
           </section>
         </div>
       </div>
+      <Newsletter/>
     </main>
   );
 };
