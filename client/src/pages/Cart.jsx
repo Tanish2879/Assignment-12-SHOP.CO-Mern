@@ -140,59 +140,41 @@ const Cart = () => {
 
   if (placedOrder) {
     return (
-      <div className="cart-page" style={{ textAlign: "center", padding: "4rem 1rem" }}>
-        <div style={{ maxWidth: "600px", margin: "0 auto", backgroundColor: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "20px", padding: "2.5rem", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}>
-          <div style={{ width: "64px", height: "64px", borderRadius: "50%", backgroundColor: "rgba(1,171,49,0.1)", color: "#01ab31", fontSize: "2rem", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}>
+      <div className="cart-page cart-page--confirmation">
+        <div className="cart-page__confirmation-card">
+          <div className="cart-page__confirmation-icon">
             ✓
           </div>
-          <h1 style={{ fontSize: "1.75rem", fontWeight: "800", color: "#000", marginBottom: "0.5rem" }}>
+          <h1 className="cart-page__confirmation-title">
             Order Placed Successfully!
           </h1>
-          <p style={{ color: "#666", fontSize: "0.95rem", marginBottom: "1.5rem" }}>
+          <p className="cart-page__confirmation-text">
             Order <strong>#{placedOrder._id ? placedOrder._id.slice(-6).toUpperCase() : ""}</strong> has been confirmed.
           </p>
 
-          <div style={{ textAlign: "left", backgroundColor: "#f9f9f9", borderRadius: "12px", padding: "1.25rem", marginBottom: "1.5rem", fontSize: "0.875rem", lineHeight: "1.6" }}>
-            <div style={{ fontWeight: "700", marginBottom: "0.5rem", color: "#000" }}>Delivery Address:</div>
+          <div className="cart-page__confirmation-details">
+            <div className="cart-page__confirmation-section-title">Delivery Address:</div>
             <div>{placedOrder.shippingAddress?.fullName || auth?.user?.name}</div>
             <div>{placedOrder.shippingAddress?.address}</div>
             <div>{placedOrder.shippingAddress?.city} {placedOrder.shippingAddress?.postalCode}</div>
             <div>Phone: {placedOrder.shippingAddress?.phone || "N/A"}</div>
             <div>Payment: <strong>{placedOrder.shippingAddress?.paymentMethod || "Cash on Delivery"}</strong></div>
-            <div style={{ borderTop: "1px solid rgba(0,0,0,0.08)", marginTop: "0.75rem", paddingTop: "0.75rem", fontWeight: "700", color: "#000" }}>
+            <div className="cart-page__confirmation-total">
               Total Paid: ${placedOrder.finalTotal}
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <div className="cart-page__confirmation-actions">
             <Link
               to="/orders"
-              style={{
-                display: "inline-block",
-                backgroundColor: "#000",
-                color: "#fff",
-                padding: "0.875rem 2rem",
-                borderRadius: "50px",
-                textDecoration: "none",
-                fontWeight: "600",
-                fontSize: "0.9rem"
-              }}
+              className="cart-page__confirmation-btn-primary"
             >
               View My Orders
             </Link>
 
             <Link
               to="/shop"
-              style={{
-                display: "inline-block",
-                backgroundColor: "#f0f0f0",
-                color: "#000",
-                padding: "0.875rem 2rem",
-                borderRadius: "50px",
-                textDecoration: "none",
-                fontWeight: "600",
-                fontSize: "0.9rem"
-              }}
+              className="cart-page__confirmation-btn-secondary"
             >
               Continue Shopping
             </Link>
@@ -214,13 +196,13 @@ const Cart = () => {
       <h1 className="cart-page__title">YOUR CART</h1>
 
       {couponSuccess && (
-        <div style={{ color: "#01ab31", backgroundColor: "rgba(1,171,49,0.1)", padding: "0.75rem", borderRadius: "8px", marginBottom: "1rem", fontWeight: "600" }}>
+        <div className="cart-page__alert cart-page__alert--success">
           {couponSuccess}
         </div>
       )}
 
       {couponError && (
-        <div style={{ color: "#ff3333", backgroundColor: "rgba(255,51,51,0.1)", padding: "0.75rem", borderRadius: "8px", marginBottom: "1rem", fontWeight: "600" }}>
+        <div className="cart-page__alert cart-page__alert--error">
           {couponError}
         </div>
       )}
@@ -247,19 +229,11 @@ const Cart = () => {
               );
             })
           ) : (
-            <div style={{ padding: "3rem 1rem", textAlign: "center", color: "#666" }}>
-              <p style={{ fontSize: "1.125rem", marginBottom: "1.5rem" }}>Your shopping cart is empty.</p>
+            <div className="cart-page__empty-state">
+              <p className="cart-page__empty-title">Your shopping cart is empty.</p>
               <Link
                 to="/shop"
-                style={{
-                  display: "inline-block",
-                  backgroundColor: "#000",
-                  color: "#fff",
-                  padding: "0.75rem 2rem",
-                  borderRadius: "50px",
-                  textDecoration: "none",
-                  fontWeight: "600"
-                }}
+                className="cart-page__empty-btn"
               >
                 Browse Products
               </Link>
@@ -294,7 +268,7 @@ const Cart = () => {
             </div>
 
             {checkoutError && (
-              <div style={{ color: "#ff3333", backgroundColor: "rgba(255,51,51,0.1)", padding: "0.75rem", borderRadius: "8px", marginBottom: "1rem", fontWeight: "600", fontSize: "0.875rem" }}>
+              <div className="cart-page__alert cart-page__alert--error">
                 {checkoutError}
               </div>
             )}
@@ -410,7 +384,7 @@ const Cart = () => {
                   <span>${subtotal}</span>
                 </div>
                 {discountPercentage > 0 && (
-                  <div className="cart-page__summary-line" style={{ color: "#ff3333" }}>
+                  <div className="cart-page__summary-line cart-page__summary-line--discount">
                     <span>Discount (-{discountPercentage}%):</span>
                     <span>-${discountAmount}</span>
                   </div>

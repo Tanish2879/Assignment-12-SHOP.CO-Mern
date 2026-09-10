@@ -106,7 +106,7 @@
   &__search-input {
     width: 100%;
     height: 3rem;
-    background-color: #f0f0f0;
+    background-color: $color-bg-gray;
     border-radius: 3.9rem;
     border: none;
     padding: 0 1.25rem 0 3.25rem;
@@ -252,7 +252,7 @@
     }
 
     &--logout {
-      color: #ff3333;
+      color: $color-danger;
       border-top: 1px solid rgba(0, 0, 0, 0.08);
       margin-top: 0.25rem;
       padding-top: 0.65rem;

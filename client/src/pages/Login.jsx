@@ -130,9 +130,9 @@ const Login = () => {
             {loading ? "Signing in..." : "Login"}
           </button>
 
-          <p className="login__switch-text" style={{ textAlign: "center", fontSize: "0.875rem", color: "#666", marginTop: "1rem" }}>
+          <p className="login__switch-text">
             Don't have an account?{" "}
-            <Link to="/signup" style={{ color: "#000", fontWeight: "700" }}>
+            <Link to="/signup" className="login__switch-link">
               Sign up
             </Link>
           </p>

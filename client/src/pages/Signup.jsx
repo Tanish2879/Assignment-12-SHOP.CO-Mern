@@ -88,7 +88,7 @@ const Signup = () => {
         </header>
 
         {error && (
-          <div style={{ color: "#ff3333", backgroundColor: "rgba(255,51,51,0.1)", padding: "0.75rem", borderRadius: "8px", marginBottom: "1rem", fontSize: "0.875rem", textAlign: "center" }}>
+          <div className="login__alert-error">
             {error}
           </div>
         )}
@@ -188,9 +188,9 @@ const Signup = () => {
             {loading ? "Creating account..." : "Sign Up"}
           </button>
 
-          <p className="login__switch-text" style={{ textAlign: "center", fontSize: "0.875rem", color: "#666", marginTop: "1rem" }}>
+          <p className="login__switch-text">
             Already have an account?{" "}
-            <Link to="/login" style={{ color: "#000", fontWeight: "700" }}>
+            <Link to="/login" className="login__switch-link">
               Log in
             </Link>
           </p>

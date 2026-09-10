@@ -68,7 +68,7 @@ const Orders = () => {
         {/* Orders List */}
         <div className="account-page__orders-list">
           {loading ? (
-            <div className="account-page__card" style={{ textAlign: "center", color: "#666" }}>
+            <div className="account-page__card account-page__empty">
               <p>Loading your orders...</p>
             </div>
           ) : orders && orders.length > 0 ? (
@@ -119,9 +119,9 @@ const Orders = () => {
               </div>
             ))
           ) : (
-            <div className="account-page__card" style={{ textAlign: "center", color: "#666" }}>
+            <div className="account-page__card account-page__empty">
               <p>You haven't placed any orders yet.</p>
-              <Link to="/shop" style={{ display: "inline-block", marginTop: "1rem", color: "#000", fontWeight: "700" }}>
+              <Link to="/shop" className="account-page__empty-link">
                 Start Shopping →
               </Link>
             </div>

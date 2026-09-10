@@ -66,7 +66,7 @@ const Home = () => {
       <Brands />
 
       {loading ? (
-        <div style={{ textAlign: "center", padding: "4rem 1rem", color: "#666" }}>
+        <div className="product-section__loading">
           Loading latest products...
         </div>
       ) : (

@@ -299,14 +299,7 @@ const Admin = () => {
         {/* Toast / Notification */}
         {feedbackMsg.text && (
           <div
-            style={{
-              padding: "0.75rem 1.25rem",
-              marginBottom: "1.5rem",
-              borderRadius: "8px",
-              backgroundColor: feedbackMsg.type === "success" ? "#d4edda" : "#f8d7da",
-              color: feedbackMsg.type === "success" ? "#155724" : "#721c24",
-              border: `1px solid ${feedbackMsg.type === "success" ? "#c3e6cb" : "#f5c6cb"}`
-            }}
+            className={`admin-page__toast admin-page__toast--${feedbackMsg.type === "success" ? "success" : "error"}`}
           >
             {feedbackMsg.text}
           </div>
@@ -415,7 +408,7 @@ const Admin = () => {
                     ))}
                     {orders.length === 0 && (
                       <tr>
-                        <td colSpan="5" style={{ textAlign: "center", color: "#666" }}>
+                        <td colSpan="5" className="admin-page__table-empty">
                           No orders found.
                         </td>
                       </tr>
@@ -458,7 +451,7 @@ const Admin = () => {
                     {products.map((product) => (
                       <tr key={product._id}>
                         <td>
-                          <div style={{ display: "flex", alignItems: "center" }}>
+                          <div className="admin-page__product-cell">
                             <img
                               src={`http://localhost:8000/api/v1/product/get-product-photo/${product._id}`}
                               alt={product.name}
@@ -483,7 +476,7 @@ const Admin = () => {
                           )}
                         </td>
                         <td>
-                          <div style={{ display: "flex", gap: "0.5rem" }}>
+                          <div className="admin-page__actions-cell">
                             <button
                               type="button"
                               className="admin-page__action-btn admin-page__action-btn--edit"
@@ -504,7 +497,7 @@ const Admin = () => {
                     ))}
                     {products.length === 0 && (
                       <tr>
-                        <td colSpan="6" style={{ textAlign: "center", color: "#666" }}>
+                        <td colSpan="6" className="admin-page__table-empty">
                           No products found. Click "+ Add Product" to create one.
                         </td>
                       </tr>
@@ -546,7 +539,7 @@ const Admin = () => {
                         <td><strong>{cat.name}</strong></td>
                         <td>{cat.slug}</td>
                         <td>
-                          <div style={{ display: "flex", gap: "0.5rem" }}>
+                          <div className="admin-page__actions-cell">
                             <button
                               type="button"
                               className="admin-page__action-btn admin-page__action-btn--edit"
@@ -567,7 +560,7 @@ const Admin = () => {
                     ))}
                     {categories.length === 0 && (
                       <tr>
-                        <td colSpan="3" style={{ textAlign: "center", color: "#666" }}>
+                        <td colSpan="3" className="admin-page__table-empty">
                           No categories found. Click "+ Add Category" to create one.
                         </td>
                       </tr>
@@ -606,11 +599,11 @@ const Admin = () => {
                         <td><strong>#{order._id.slice(-6).toUpperCase()}</strong></td>
                         <td>
                           <div>{order.buyer?.name || "Customer"}</div>
-                          <small style={{ color: "#777" }}>{order.buyer?.email}</small>
+                          <small className="admin-page__order-buyer-email">{order.buyer?.email}</small>
                         </td>
                         <td>
                           {order.products?.map((p, idx) => (
-                            <div key={idx} style={{ fontSize: "0.75rem" }}>
+                            <div key={idx} className="admin-page__order-product-item">
                               {p.name || p.product?.name || "Item"} x{p.quantity}
                             </div>
                           ))}
@@ -626,7 +619,7 @@ const Admin = () => {
                           <select
                             defaultValue={order.status}
                             onChange={(e) => handleStatusChange(order._id, e.target.value)}
-                            style={{ padding: "0.35rem 0.6rem", borderRadius: "6px", border: "1px solid #ccc", outline: "none" }}
+                            className="admin-page__status-select"
                           >
                             <option value="Not Process">Not Process</option>
                             <option value="Processing">Processing</option>
@@ -639,7 +632,7 @@ const Admin = () => {
                     ))}
                     {orders.length === 0 && (
                       <tr>
-                        <td colSpan="7" style={{ textAlign: "center", color: "#666" }}>
+                        <td colSpan="7" className="admin-page__table-empty">
                           No orders placed yet.
                         </td>
                       </tr>
@@ -810,7 +803,7 @@ const Admin = () => {
         {/* Category Modal (Add / Edit) */}
         {showCategoryModal && (
           <div className="admin-page__modal-overlay" onClick={() => setShowCategoryModal(false)}>
-            <div className="admin-page__modal" style={{ maxWidth: "450px" }} onClick={(e) => e.stopPropagation()}>
+            <div className="admin-page__modal admin-page__modal--small" onClick={(e) => e.stopPropagation()}>
               <div className="admin-page__modal-header">
                 <h3 className="admin-page__modal-title">
                   {editingCategory ? "Edit Category" : "Add New Category"}

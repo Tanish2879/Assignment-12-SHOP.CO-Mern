@@ -138,7 +138,7 @@ const ProductDetail = () => {
   if (loading) {
     return (
       <main className="product-detail-page">
-        <div className="product-detail-page__container" style={{ textAlign: "center", padding: "5rem 1rem" }}>
+        <div className="product-detail-page__container product-detail-page__status-container">
           <h2>Loading product details...</h2>
         </div>
       </main>
@@ -148,9 +148,9 @@ const ProductDetail = () => {
   if (error || !product) {
     return (
       <main className="product-detail-page">
-        <div className="product-detail-page__container" style={{ textAlign: "center", padding: "5rem 1rem" }}>
+        <div className="product-detail-page__container product-detail-page__status-container">
           <h2>{error || "Product not found"}</h2>
-          <Link to="/shop" style={{ color: "#000", fontWeight: "700", display: "inline-block", marginTop: "1rem" }}>
+          <Link to="/shop" className="product-detail-page__back-link">
             ← Back to Shop
           </Link>
         </div>
@@ -242,15 +242,15 @@ const ProductDetail = () => {
             {/* Stock status indicator */}
             <div>
               {isOutOfStock ? (
-                <span style={{ color: "#ff3333", fontWeight: "700", fontSize: "0.9375rem" }}>
+                <span className="product-detail-page__stock-status product-detail-page__stock-status--out">
                   ● OUT OF STOCK
                 </span>
               ) : isLowStock ? (
-                <span style={{ color: "#ff9900", fontWeight: "600", fontSize: "0.875rem" }}>
+                <span className="product-detail-page__stock-status product-detail-page__stock-status--low">
                   ● Only {product.quantity} left in stock!
                 </span>
               ) : (
-                <span style={{ color: "#01ab31", fontWeight: "600", fontSize: "0.875rem" }}>
+                <span className="product-detail-page__stock-status product-detail-page__stock-status--in">
                   ● In Stock ({product.quantity} available)
                 </span>
               )}
@@ -282,8 +282,8 @@ const ProductDetail = () => {
 
             {/* Added to cart notification */}
             {addedNotice && (
-              <div style={{ backgroundColor: "#e6f9ed", color: "#01ab31", padding: "0.75rem", borderRadius: "8px", fontWeight: "600", fontSize: "0.875rem" }}>
-                ✓ Added to cart successfully! <Link to="/cart" style={{ color: "#000", textDecoration: "underline", marginLeft: "0.5rem" }}>View Cart</Link>
+              <div className="product-detail-page__added-notice">
+                ✓ Added to cart successfully! <Link to="/cart" className="product-detail-page__added-notice-link">View Cart</Link>
               </div>
             )}
 

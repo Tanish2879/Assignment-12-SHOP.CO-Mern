@@ -100,13 +100,13 @@ const Profile = () => {
           <h2 className="account-page__card-title">Personal Information</h2>
 
           {message && (
-            <div style={{ color: "#01ab31", backgroundColor: "rgba(1,171,49,0.1)", padding: "0.75rem", borderRadius: "8px", marginBottom: "1rem", fontSize: "0.875rem" }}>
+            <div className="account-page__alert account-page__alert--success">
               {message}
             </div>
           )}
 
           {error && (
-            <div style={{ color: "#ff3333", backgroundColor: "rgba(255,51,51,0.1)", padding: "0.75rem", borderRadius: "8px", marginBottom: "1rem", fontSize: "0.875rem" }}>
+            <div className="account-page__alert account-page__alert--error">
               {error}
             </div>
           )}
@@ -150,6 +150,7 @@ const Profile = () => {
                   className="account-page__input"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
               </div>
 
@@ -177,6 +178,7 @@ const Profile = () => {
                   className="account-page__input"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
+                  required
                 />
               </div>
             </div>
