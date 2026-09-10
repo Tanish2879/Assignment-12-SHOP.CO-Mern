@@ -5,7 +5,7 @@
   padding: 1.5rem 1rem 5rem;
 
   &__container {
-    max-width: 1240px;
+    max-width: 77.5rem;
     margin: 0 auto;
   }
 
@@ -33,12 +33,12 @@
     display: flex;
     flex-direction: column;
     gap: 0.875rem;
-    width: 140px;
+    width: 8.8rem;
     flex-shrink: 0;
   }
 
   &__thumb-btn {
-    border-radius: 20px;
+    border-radius: 1.3rem;
     background-color: $color-card-gray;
     border: 1.5px solid transparent;
     padding: 0.5rem;
@@ -66,17 +66,17 @@
   &__main-image-wrapper {
     flex: 1;
     background-color: $color-card-gray;
-    border-radius: 20px;
+    border-radius: 1.3rem;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 530px;
+    min-height: 33.1rem;
     padding: 1.5rem;
 
     img {
       max-width: 100%;
-      max-height: 480px;
+      max-height: 30.0rem;
       object-fit: contain;
       display: block;
     }
@@ -97,7 +97,7 @@
     line-height: 1.15;
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: -0.5px;
+    letter-spacing: 0.0rem;
   }
 
   &__rating {
@@ -133,7 +133,7 @@
     font-size: 0.875rem;
     font-weight: 600;
     padding: 0.35rem 0.875rem;
-    border-radius: 62px;
+    border-radius: 3.9rem;
   }
 
   &__description {
@@ -163,7 +163,7 @@
     background-color: $colorblack;
     color: $colorwhite;
     border: none;
-    border-radius: 62px;
+    border-radius: 3.9rem;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -171,7 +171,7 @@
 
     &:hover:not(:disabled) {
       background-color: #222222;
-      transform: translateY(-2px);
+      transform: translateY(-0.1rem);
     }
 
     &:disabled {
@@ -264,7 +264,7 @@
     background-color: $colorblack;
     color: $colorwhite;
     border: none;
-    border-radius: 62px;
+    border-radius: 3.9rem;
     padding: 0.75rem 1.75rem;
     font-size: 0.875rem;
     font-weight: 600;
@@ -289,7 +289,7 @@
     padding: 0.875rem 3.5rem;
     background-color: $colorwhite;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 62px;
+    border-radius: 3.9rem;
     font-size: 0.9375rem;
     font-weight: 600;
     color: $colorblack;
@@ -309,7 +309,7 @@
     font-size: 1rem;
     background-color: $colorwhite;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
+    border-radius: 1.3rem;
     padding: 2rem;
   }
 
@@ -325,7 +325,7 @@
     color: $colorblack;
     text-transform: uppercase;
     margin-bottom: 3rem;
-    letter-spacing: -0.5px;
+    letter-spacing: 0.0rem;
   }
 }
 
@@ -348,12 +348,12 @@
     }
 
     &__thumb-btn {
-      width: 90px;
+      width: 5.6rem;
       flex-shrink: 0;
     }
 
     &__main-image-wrapper {
-      min-height: 350px;
+      min-height: 21.9rem;
     }
 
     &__title {
@@ -424,12 +424,12 @@
     }
 
     &__main-image-wrapper {
-      min-height: 280px;
+      min-height: 17.5rem;
     }
 
     &__thumb-btn {
-      width: 75px;
-      height: 75px;
+      width: 4.7rem;
+      height: 4.7rem;
     }
   }
 }

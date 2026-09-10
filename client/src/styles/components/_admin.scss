@@ -4,10 +4,10 @@
 .admin-page {
   padding: 2rem 1rem 5rem;
   background-color: #fafafa;
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 7.5rem);
 
   &__container {
-    max-width: 1240px;
+    max-width: 77.5rem;
     margin: 0 auto;
   }
 
@@ -32,7 +32,7 @@
     gap: 0.5rem;
     background-color: #f0f0f0;
     padding: 0.35rem;
-    border-radius: 12px;
+    border-radius: 0.8rem;
     flex-wrap: wrap;
   }
 
@@ -40,7 +40,7 @@
     background: none;
     border: none;
     padding: 0.6rem 1.25rem;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.6);
@@ -54,14 +54,14 @@
     &--active {
       background-color: $colorwhite;
       color: $colorblack;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.05);
     }
   }
 
   /* Stats Grid */
   &__stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(11.3rem, 1fr));
     gap: 1rem;
     margin-bottom: 2.5rem;
   }
@@ -69,7 +69,7 @@
   &__stat-card {
     background-color: $colorwhite;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
+    border-radius: 1.0rem;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -101,7 +101,7 @@
   &__card {
     background-color: $colorwhite;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
+    border-radius: 1.0rem;
     padding: 1.5rem;
     margin-bottom: 2rem;
   }
@@ -126,7 +126,7 @@
     background-color: $colorblack;
     color: $colorwhite;
     border: none;
-    border-radius: 50px;
+    border-radius: 3.1rem;
     padding: 0.5rem 1.25rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -176,7 +176,7 @@
   &__badge {
     display: inline-block;
     padding: 0.25rem 0.625rem;
-    border-radius: 50px;
+    border-radius: 3.1rem;
     font-size: 0.75rem;
     font-weight: 600;
 
@@ -209,7 +209,7 @@
     font-size: 0.8125rem;
     font-weight: 600;
     padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    border-radius: 0.3rem;
 
     &--edit {
       color: #0066ff;
@@ -243,13 +243,13 @@
 
   &__modal {
     background-color: $colorwhite;
-    border-radius: 16px;
-    max-width: 600px;
+    border-radius: 1.0rem;
+    max-width: 37.5rem;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
     padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.6rem 1.9rem rgba(0, 0, 0, 0.2);
     position: relative;
   }
 
@@ -290,7 +290,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 
-    @media (max-width: 480px) {
+    @media (max-width: 30.0rem) {
       grid-template-columns: 1fr;
     }
   }
@@ -309,7 +309,7 @@
     input, select, textarea {
       padding: 0.65rem 0.85rem;
       border: 1px solid rgba(0, 0, 0, 0.15);
-      border-radius: 8px;
+      border-radius: 0.5rem;
       font-size: 0.875rem;
       outline: none;
       transition: border-color 0.2s;
@@ -321,7 +321,7 @@
 
     textarea {
       resize: vertical;
-      min-height: 80px;
+      min-height: 5.0rem;
     }
   }
 
@@ -336,7 +336,7 @@
     background-color: #f0f0f0;
     border: none;
     padding: 0.6rem 1.25rem;
-    border-radius: 50px;
+    border-radius: 3.1rem;
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
@@ -350,7 +350,7 @@
     color: $colorwhite;
     border: none;
     padding: 0.6rem 1.5rem;
-    border-radius: 50px;
+    border-radius: 3.1rem;
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
@@ -360,9 +360,9 @@
   }
 
   &__product-thumb {
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 0.5rem;
     object-fit: cover;
     background-color: #f0f0f0;
     vertical-align: middle;

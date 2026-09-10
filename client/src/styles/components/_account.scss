@@ -4,10 +4,10 @@
 .account-page {
   padding: 2rem 1rem 5rem;
   background-color: #fafafa;
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 7.5rem);
 
   &__container {
-    max-width: 1240px;
+    max-width: 77.5rem;
     margin: 0 auto;
   }
 
@@ -36,13 +36,13 @@
     gap: 0.5rem;
     background-color: #f0f0f0;
     padding: 0.35rem;
-    border-radius: 12px;
+    border-radius: 0.8rem;
   }
 
   &__nav-link {
     text-decoration: none;
     padding: 0.6rem 1.25rem;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.6);
@@ -55,7 +55,7 @@
     &--active {
       background-color: $colorwhite;
       color: $colorblack;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.05);
     }
   }
 
@@ -63,7 +63,7 @@
   &__card {
     background-color: $colorwhite;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
+    border-radius: 1.0rem;
     padding: 2rem;
     margin-bottom: 2rem;
   }
@@ -103,7 +103,7 @@
     width: 100%;
     padding: 0.875rem 1rem;
     border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
+    border-radius: 0.5rem;
     font-size: 0.9375rem;
     background-color: #f9f9f9;
     color: $colorblack;
@@ -119,7 +119,7 @@
     background-color: $colorblack;
     color: $colorwhite;
     border: none;
-    border-radius: 50px;
+    border-radius: 3.1rem;
     padding: 0.875rem 2.5rem;
     font-size: 0.9375rem;
     font-weight: 600;
@@ -141,12 +141,12 @@
   &__order-card {
     background-color: $colorwhite;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
+    border-radius: 1.0rem;
     overflow: hidden;
     transition: box-shadow 0.2s ease;
 
     &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.05);
     }
   }
 
@@ -199,11 +199,11 @@
     gap: 1rem;
 
     img {
-      width: 60px;
-      height: 60px;
+      width: 3.8rem;
+      height: 3.8rem;
       object-fit: contain;
       background-color: #f0eeed;
-      border-radius: 8px;
+      border-radius: 0.5rem;
     }
   }
 

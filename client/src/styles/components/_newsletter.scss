@@ -2,7 +2,7 @@
 @use "../abstract/mixins" as *;
 
 .newsletter {
-  max-width: 1240px;
+  max-width: 77.5rem;
   margin: 0 auto;
   padding: 0 1rem;
   position: relative;
@@ -11,7 +11,7 @@
 
   &__container {
     background-color: $colorblack;
-    border-radius: 20px;
+    border-radius: 1.3rem;
     padding: 2.75rem 4rem;
     display: flex;
     align-items: center;
@@ -27,7 +27,7 @@
     text-transform: uppercase;
     max-width: 35rem;
     margin: 0;
-    letter-spacing: -0.5px;
+    letter-spacing: 0.0rem;
   }
 
   &__form {
@@ -56,7 +56,7 @@
     width: 100%;
     height: 3rem;
     background-color: $colorwhite;
-    border-radius: 62px;
+    border-radius: 3.9rem;
     border: none;
     padding: 0 1rem 0 3.25rem;
     font-size: 0.9375rem;
@@ -73,7 +73,7 @@
     height: 3rem;
     background-color: $colorwhite;
     color: $colorblack;
-    border-radius: 62px;
+    border-radius: 3.9rem;
     border: none;
     font-size: 0.9375rem;
     font-weight: 600;
@@ -82,7 +82,7 @@
 
     &:hover {
       background-color: #f0f0f0;
-      transform: translateY(-2px);
+      transform: translateY(-0.1rem);
     }
   }
 }

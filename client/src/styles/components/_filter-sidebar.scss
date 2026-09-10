@@ -4,10 +4,10 @@
 .filter-sidebar {
   background-color: $colorwhite;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  border-radius: 1.3rem;
   padding: 1.5rem;
   width: 100%;
-  max-width: 295px;
+  max-width: 18.4rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -95,8 +95,8 @@
     width: 100%;
     accent-color: $colorblack;
     cursor: pointer;
-    height: 6px;
-    border-radius: 6px;
+    height: 0.4rem;
+    border-radius: 0.4rem;
   }
 
   &__price-labels {
@@ -117,7 +117,7 @@
     height: 3rem;
     background-color: $colorblack;
     color: $colorwhite;
-    border-radius: 62px;
+    border-radius: 3.9rem;
     border: none;
     font-size: 0.9375rem;
     font-weight: 600;
@@ -127,7 +127,7 @@
 
     &:hover {
       background-color: #222222;
-      transform: translateY(-1px);
+      transform: translateY(-0.1rem);
     }
   }
 }
@@ -140,10 +140,10 @@
     height: 100vh;
     z-index: 1000;
     border-radius: 0;
-    max-width: 320px;
+    max-width: 20.0rem;
     overflow-y: auto;
     transition: left 0.3s ease;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0.3rem 0 1.3rem rgba(0, 0, 0, 0.2);
 
     &--open {
       left: 0;

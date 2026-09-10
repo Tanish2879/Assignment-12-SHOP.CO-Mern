@@ -9,7 +9,7 @@
   transition: transform 0.2s ease;
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-0.2rem);
   }
 
   &__image-link {
@@ -19,7 +19,7 @@
 
   &__image-wrapper {
     background-color: $color-card-gray;
-    border-radius: 20px;
+    border-radius: 1.3rem;
     overflow: hidden;
     aspect-ratio: 1 / 1;
     display: flex;
@@ -60,7 +60,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    letter-spacing: -0.2px;
+    letter-spacing: 0.0rem;
   }
 
   &__rating {
@@ -96,7 +96,7 @@
     font-size: 0.75rem;
     font-weight: 600;
     padding: 0.25rem 0.625rem;
-    border-radius: 62px;
+    border-radius: 3.9rem;
     line-height: 1;
   }
 }
@@ -106,7 +106,7 @@
     min-width: 0;
 
     &__image-wrapper {
-      border-radius: 14px;
+      border-radius: 0.9rem;
       margin-bottom: 0.625rem;
     }
 
