@@ -37,7 +37,7 @@
     }
 
     &--low {
-      color: #ff9900;
+      color: $color-warning-orange;
     }
 
     &--in {
@@ -46,7 +46,7 @@
   }
 
   &__added-notice {
-    background-color: #e6f9ed;
+    background-color: $color-surface-soft-green;
     color: $color-success;
     padding: 0.8rem;
     border-radius: 0.5rem;
@@ -222,12 +222,12 @@
     transition: background-color 0.2s ease, transform 0.15s ease;
 
     &:hover:not(:disabled) {
-      background-color: #222222;
+      background-color: $color-darker;
       transform: translateY(-0.1rem);
     }
 
     &:disabled {
-      background-color: #cccccc;
+      background-color: $color-silver-line;
       cursor: not-allowed;
     }
   }
@@ -324,7 +324,7 @@
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #222222;
+      background-color: $color-darker;
     }
   }
 

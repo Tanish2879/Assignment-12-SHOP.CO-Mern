@@ -32,4 +32,29 @@ $color-danger: #ff3333;
 $color-discount-bg: rgba(255, 51, 51, 0.1);
 $color-success: #01ab31;
 $color-success-bg: rgba(1, 171, 49, 0.1);
-$color-darkgreen:#155724
+$color-darkgreen:#155724;
+
+// Additional shared palette aliases for literal colors still used by component SCSS
+$color-darker: #222222;
+$color-login-border: #424040;
+$color-surface-light: #f7f7f7;
+$color-surface-soft: #f5f5f5;
+$color-surface-muted: #e8e8e8;
+$color-surface-neutral: #e4e4e4;
+$color-surface-soft-green: #e6f9ed;
+$color-surface-soft-red: #fff0f0;
+$color-surface-soft-red-border: #ffcccc;
+$color-slate-border: #d6dce5;
+$color-link-blue: #0066ff;
+$color-warning-orange: #ff9900;
+$color-warning-golden: #e68a00;
+$color-danger-text: #cc0000;
+$color-silver-line: #cccccc;
+$color-muted-gray: #888888;
+
+// Admin toast / alert color aliases
+$color-toast-success-bg: #d4edda;
+$color-toast-success-border: #c3e6cb;
+$color-toast-error-bg: #f8d7da;
+$color-toast-error-text: #721c24;
+$color-toast-error-border: #f5c6cb;

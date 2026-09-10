@@ -127,7 +127,7 @@
     transition: all 0.2s ease;
 
     &:hover {
-      background-color: #222222;
+      background-color: $color-darker;
       transform: translateY(-0.1rem);
       box-shadow: 0 0.5rem 1.3rem rgba(0, 0, 0, 0.15);
     }

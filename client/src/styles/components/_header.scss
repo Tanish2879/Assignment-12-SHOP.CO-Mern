@@ -120,7 +120,7 @@
     }
 
     &:focus {
-      background-color: #e8e8e8;
+      background-color: $color-surface-muted;
       box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.08);
     }
   }
@@ -227,7 +227,7 @@
 
     span {
       font-size: 0.75rem;
-      color: #0066ff;
+      color: $color-link-blue;
       font-weight: 600;
     }
   }
@@ -248,7 +248,7 @@
     transition: background-color 0.15s ease, color 0.15s ease;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: $color-surface-soft;
     }
 
     &--logout {

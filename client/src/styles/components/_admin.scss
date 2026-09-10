@@ -19,15 +19,15 @@
     font-size: 0.9rem;
 
     &--success {
-      background-color: #d4edda;
+      background-color: $color-toast-success-bg;
       color: $color-darkgreen;
-      border: 1px solid #c3e6cb;
+      border: 1px solid $color-toast-success-border;
     }
 
     &--error {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
+      background-color: $color-toast-error-bg;
+      color: $color-toast-error-text;
+      border: 1px solid $color-toast-error-border;
     }
   }
 
@@ -100,7 +100,7 @@
     }
 
     &--warning {
-      border-left: 0.3rem solid #ff9900;
+      border-left: 0.3rem solid $color-warning-orange;
     }
   }
 
@@ -154,7 +154,7 @@
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #333333;
+      background-color: $colordarkhover;
     }
   }
 
@@ -172,7 +172,7 @@
 
     th {
       padding: 0.9rem 1.0rem;
-      background-color: #f7f7f7;
+      background-color: $color-surface-light;
       color: rgba(0, 0, 0, 0.6);
       font-weight: 600;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -207,7 +207,7 @@
 
     &--warning {
       background-color: rgba(255, 153, 0, 0.12);
-      color: #e68a00;
+      color: $color-warning-golden;
     }
 
     &--danger {
@@ -217,7 +217,7 @@
 
     &--info {
       background-color: rgba(0, 102, 255, 0.1);
-      color: #0066ff;
+      color: $color-link-blue;
     }
   }
 
@@ -232,7 +232,7 @@
     border-radius: 0.3rem;
 
     &--edit {
-      color: #0066ff;
+      color: $color-link-blue;
       &:hover {
         text-decoration: underline;
       }
@@ -278,9 +278,9 @@
   }
 
   &__alert-danger {
-    background-color: #fff0f0;
-    border: 1px solid #ffcccc;
-    color: #cc0000;
+    background-color: $color-surface-soft-red;
+    border: 1px solid $color-surface-soft-red-border;
+    color: $color-danger-text;
     padding: 0.9rem;
     border-radius: 0.5rem;
     margin-bottom: 1.3rem;
@@ -413,7 +413,7 @@
     font-weight: 600;
     cursor: pointer;
     &:hover {
-      background-color: #e4e4e4;
+      background-color: $color-surface-neutral;
     }
   }
 
@@ -427,7 +427,7 @@
     font-weight: 600;
     cursor: pointer;
     &:hover {
-      background-color: #333;
+      background-color: $colordarkhover;
     }
   }
 

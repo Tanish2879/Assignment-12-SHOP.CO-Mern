@@ -72,7 +72,7 @@
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #222;
+      background-color: $color-darker;
     }
   }
 
@@ -161,7 +161,7 @@
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #222;
+      background-color: $color-darker;
     }
   }
 
@@ -177,7 +177,7 @@
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #e4e4e4;
+      background-color: $color-surface-neutral;
     }
   }
 
@@ -351,7 +351,7 @@
     font-weight: 600;
     cursor: pointer;
     &:hover {
-      background-color: #e4e4e4;
+      background-color: $color-surface-neutral;
     }
   }
 
@@ -367,11 +367,11 @@
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: #222;
+      background-color: $color-darker;
     }
 
     &:disabled {
-      background-color: #888;
+      background-color: $color-muted-gray;
       cursor: not-allowed;
     }
   }
