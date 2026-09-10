@@ -27,7 +27,6 @@ const Header = ({
   const { cartCount: contextCartCount } = useCart();
   const cartCount = propCartCount !== undefined ? propCartCount : contextCartCount;
 
-  // Keep local search input in sync if URL query parameter changes
   useEffect(() => {
     setLocalSearch(urlSearch || searchQuery || "");
   }, [urlSearch, searchQuery]);
@@ -112,7 +111,6 @@ const Header = ({
   return (
     <header className="site-header">
       <div className="site-header__container">
-        {/* Left: Mobile menu toggle + Brand Logo */}
         <div className="site-header__left">
           <button
             type="button"

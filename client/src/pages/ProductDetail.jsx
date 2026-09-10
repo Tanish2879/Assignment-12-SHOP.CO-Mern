@@ -163,6 +163,9 @@ const ProductDetail = () => {
   const isLowStock = product.quantity > 0 && product.quantity <= 5;
   const photoUrl = `http://localhost:8000/api/v1/product/get-product-photo/${product._id}`;
 
+  console.log(photoUrl);
+  
+
   const breadcrumbs = [
     { label: "Home", path: "/" },
     { label: "Shop", path: "/shop" },
@@ -288,7 +291,7 @@ const ProductDetail = () => {
               </div>
             )}
 
-            {/* Quantity and Add to Cart */}
+            /* Quantity and Add to Cart */
             <div className="product-detail-page__actions">
               <QuantitySelector
                 quantity={quantity}
@@ -311,7 +314,7 @@ const ProductDetail = () => {
           </div>
         </section>
 
-        {/* Tabs Section matching Figma */}
+        /* Tabs Section matching Figma */
         <section className="product-detail-page__tabs-section">
           <div className="product-detail-page__tabs-header">
             <button
@@ -337,7 +340,7 @@ const ProductDetail = () => {
             </button>
           </div>
 
-          {/* Reviews Tab */}
+          /* Reviews Tab */
           {activeTab === "reviews" && (
             <div className="product-detail-page__reviews-tab">
               <div className="product-detail-page__reviews-toolbar">
@@ -366,7 +369,6 @@ const ProductDetail = () => {
                 </div>
               </div>
 
-              {/* Reviews Grid */}
               <div className="product-detail-page__reviews-grid">
                 {defaultReviews.map((rev) => (
                   <ReviewCard

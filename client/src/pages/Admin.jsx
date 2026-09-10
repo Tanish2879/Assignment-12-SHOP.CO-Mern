@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/authContext";
+import Newsletter from "../components/Newsletter";
 
 const Admin = () => {
   const [auth] = useAuth();
@@ -296,7 +297,6 @@ const Admin = () => {
   return (
     <main className="admin-page">
       <div className="admin-page__container">
-        {/* Toast / Notification */}
         {feedbackMsg.text && (
           <div
             className={`admin-page__toast admin-page__toast--${feedbackMsg.type === "success" ? "success" : "error"}`}
@@ -305,7 +305,6 @@ const Admin = () => {
           </div>
         )}
 
-        {/* Header and Tab Navigation */}
         <div className="admin-page__header">
           <h1 className="admin-page__title">Admin Panel</h1>
 
@@ -341,7 +340,6 @@ const Admin = () => {
           </nav>
         </div>
 
-        {/* 1. Dashboard Overview Tab */}
         {activeTab === "dashboard" && (
           <section className="admin-page__section">
             <div className="admin-page__stats-grid">
@@ -376,7 +374,6 @@ const Admin = () => {
               </div>
             </div>
 
-            {/* Quick Overview Section */}
             <div className="admin-page__card">
               <div className="admin-page__card-header">
                 <h2 className="admin-page__card-title">Recent Orders</h2>
@@ -420,7 +417,6 @@ const Admin = () => {
           </section>
         )}
 
-        {/* 2. Products Management Tab */}
         {activeTab === "products" && (
           <section className="admin-page__section">
             <div className="admin-page__card">
@@ -509,7 +505,6 @@ const Admin = () => {
           </section>
         )}
 
-        {/* 3. Category Management Tab */}
         {activeTab === "categories" && (
           <section className="admin-page__section">
             <div className="admin-page__card">
@@ -572,7 +567,6 @@ const Admin = () => {
           </section>
         )}
 
-        {/* 4. Orders Management Tab */}
         {activeTab === "orders" && (
           <section className="admin-page__section">
             <div className="admin-page__card">
@@ -644,7 +638,6 @@ const Admin = () => {
           </section>
         )}
 
-        {/* Product Modal (Add / Edit) */}
         {showProductModal && (
           <div className="admin-page__modal-overlay" onClick={() => setShowProductModal(false)}>
             <div className="admin-page__modal" onClick={(e) => e.stopPropagation()}>
@@ -800,7 +793,6 @@ const Admin = () => {
           </div>
         )}
 
-        {/* Category Modal (Add / Edit) */}
         {showCategoryModal && (
           <div className="admin-page__modal-overlay" onClick={() => setShowCategoryModal(false)}>
             <div className="admin-page__modal admin-page__modal--small" onClick={(e) => e.stopPropagation()}>
@@ -847,6 +839,8 @@ const Admin = () => {
           </div>
         )}
       </div>
+
+      <Newsletter/>
     </main>
   );
 };

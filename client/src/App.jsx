@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/orders/:id" element={<Orders />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
-      <Footer />
+      {!isAuthPage && <Footer />}
     </>
   );
 };

@@ -107,6 +107,21 @@
   &__pagination-wrapper {
     margin-top: 1rem;
   }
+
+  &__overlay {
+    display: none;
+
+    @media (max-width: 62rem) {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 999;
+    }
+  }
 }
 
 /* Mobile & Tablet responsiveness */
@@ -115,7 +130,7 @@
     padding: 1.25rem 1rem 3.5rem;
 
     &__sidebar-wrapper {
-      display: none;
+      display: contents;
     }
 
     &__filter-btn {

@@ -123,6 +123,15 @@ const Category = () => {
         </div>
 
         <div className="category-page__layout">
+          {/* Mobile Overlay */}
+          {isFilterOpen && (
+            <div
+              className="category-page__overlay"
+              onClick={() => setIsFilterOpen(false)}
+              aria-hidden="true"
+            />
+          )}
+
           {/* Filter Sidebar (Desktop & Mobile Drawer) */}
           <div className="category-page__sidebar-wrapper">
             <FilterSidebar
@@ -139,7 +148,10 @@ const Category = () => {
               onSelectSize={(size) => setSelectedSize(size === selectedSize ? "" : size)}
               selectedDressStyle={selectedDressStyle}
               onSelectDressStyle={(style) => setSelectedDressStyle(style === selectedDressStyle ? "" : style)}
-              onApplyFilter={() => fetchFilteredProducts(1)}
+              onApplyFilter={() => {
+                fetchFilteredProducts(1);
+                setIsFilterOpen(false);
+              }}
               isOpen={isFilterOpen}
               onClose={() => setIsFilterOpen(false)}
             />

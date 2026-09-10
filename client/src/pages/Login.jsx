@@ -87,7 +87,7 @@ const Login = () => {
         </header>
 
         {error && (
-          <div style={{ color: "#ff3333", backgroundColor: "rgba(255,51,51,0.1)", padding: "0.75rem", borderRadius: "8px", marginBottom: "1rem", fontSize: "0.875rem", textAlign: "center" }}>
+          <div className="login__alert-error">
             {error}
           </div>
         )}
