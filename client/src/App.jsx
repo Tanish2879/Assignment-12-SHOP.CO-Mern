@@ -15,6 +15,7 @@ import ProductDetail from "./pages/ProductDetail";
 const App = () => {
   const location = useLocation();
   const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+  
 
   return (
     <>

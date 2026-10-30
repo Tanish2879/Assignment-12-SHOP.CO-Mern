@@ -18,6 +18,7 @@ const requireSignin = async (req, res, next) => {
             message: "Invalid or expired JWT"
         });
     }
+    console.log(akdfdsfnds);
 };
 
 // Admin access
