@@ -26,6 +26,13 @@ const orderSchema = new mongoose.Schema(
                 },
             },
         ],
+        newbuyer[
+            wf
+
+        ]
+        dcds[
+            sdvfs
+        ]
         buyer: {
             type: mongoose.ObjectId,
             ref: "user",
